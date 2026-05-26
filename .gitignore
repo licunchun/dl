@@ -1,0 +1,25 @@
+data/
+*.zip
+__pycache__/
+*.pyc
+.venv/
+.env
+.ipynb_checkpoints/
+runs/
+checkpoints/
+*.pt
+*.parquet
+reports/figures/*.png
+reports/daily_logs/*.csv
+!reports/daily_logs/.gitkeep
+reports/slurm/*.out
+reports/slurm/*.err
+
+# Local agent/runtime state
+.codex/
+.omx/
+
+# Test/build caches
+.pytest_cache/
+pytest-of-*/
+torchinductor_*/
