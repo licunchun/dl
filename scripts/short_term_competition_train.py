@@ -5,7 +5,7 @@ pipeline while the long A100 job is still running.  The model objective is still
 cross-sectional IC, but the split and features are tuned for the 2026-06-01 to
 2026-06-12 virtual trading window:
 
-* train on recent history only;
+* train on broad history with exponential recency weights;
 * validate on May 2026, the closest labelled period;
 * add shifted moneyflow features;
 * emit a 2026-06-01 target list using 2026-05-28 as the data cutoff.
@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 from dataclasses import asdict
 from pathlib import Path
@@ -33,7 +34,7 @@ from src.dataset import DayBatchSampler, WindowDataset
 from src.eval import summarize, topk_spread
 from src.features import compute_features, list_feature_cols
 from src.labels import attach_labels, clip_outliers
-from src.train import TrainConfig, _collect_preds, _run_epoch, build_model
+from src.train import TrainConfig, _collate, _collect_preds, build_model, ic_loss
 
 CHECKPOINTS = PROJECT_ROOT / "checkpoints"
 REPORTS = PROJECT_ROOT / "reports"
@@ -55,6 +56,77 @@ MONEYFLOW_FEATURES = [
     "rk_mf_lg_amt",
     "rk_mf_buy_pressure",
 ]
+
+
+def _normalise_batch_cap(batch_cap: int | None) -> int | None:
+    return None if batch_cap is None or batch_cap <= 0 else batch_cap
+
+
+def _date_weight(date_days: int, train_end_days: int, half_life_days: float, min_weight: float) -> float:
+    if half_life_days <= 0:
+        return 1.0
+    age = max(0, train_end_days - date_days)
+    decay = math.exp(-math.log(2.0) * age / half_life_days)
+    return float(min_weight + (1.0 - min_weight) * decay)
+
+
+def _run_epoch_weighted(
+    model,
+    sampler,
+    ds,
+    optim,
+    device,
+    *,
+    train: bool,
+    train_end: str,
+    half_life_days: float,
+    min_date_weight: float,
+    batch_cap: int | None = None,
+    scaler=None,
+    amp: bool = False,
+) -> dict[str, float]:
+    """Run one IC epoch, optionally weighting older day-batches less."""
+    model.train(train)
+    losses: list[float] = []
+    weighted_losses: list[float] = []
+    weights: list[float] = []
+    batch_cap = _normalise_batch_cap(batch_cap)
+    train_end_days = int(pd.Timestamp(train_end).to_datetime64().astype("datetime64[D]").astype("int64"))
+
+    for idxs in sampler:
+        if batch_cap and len(idxs) > batch_cap:
+            idxs = np.random.choice(idxs, size=batch_cap, replace=False).tolist()
+        xs, ys, _, dates = _collate([ds[i] for i in idxs])
+        xs = xs.to(device, non_blocking=True)
+        ys = ys.to(device, non_blocking=True)
+        weight = _date_weight(int(dates[0]), train_end_days, half_life_days, min_date_weight) if train else 1.0
+
+        with torch.set_grad_enabled(train):
+            with torch.autocast(device_type="cuda", enabled=amp):
+                raw_loss = ic_loss(model(xs), ys)
+                loss = raw_loss * weight
+        if train:
+            optim.zero_grad()
+            if scaler is not None and amp:
+                scaler.scale(loss).backward()
+                scaler.unscale_(optim)
+                torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+                scaler.step(optim)
+                scaler.update()
+            else:
+                loss.backward()
+                torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+                optim.step()
+
+        losses.append(float(raw_loss.item()))
+        weighted_losses.append(float(loss.item()))
+        weights.append(weight)
+
+    return {
+        "loss": float(np.mean(losses)) if losses else float("nan"),
+        "weighted_loss": float(np.mean(weighted_losses)) if weighted_losses else float("nan"),
+        "mean_weight": float(np.mean(weights)) if weights else float("nan"),
+    }
 
 
 def _configure_data_dir(data_dir: Path) -> None:
@@ -249,23 +321,29 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--data-dir", type=Path, default=Path("/home/lcc17/pan_sync_20260528/A股数据"))
     ap.add_argument("--cache-dir", type=Path, default=Path("/home/lcc17/pan_sync_20260528/shortterm_cache"))
-    ap.add_argument("--start", default="2024-01-01")
+    ap.add_argument("--start", default="2019-01-01")
     ap.add_argument("--train-end", default="2026-04-30")
     ap.add_argument("--val-start", default="2026-05-06")
     ap.add_argument("--val-end", default="2026-05-27")
     ap.add_argument("--asof-date", default="2026-05-28")
     ap.add_argument("--target-date", default="2026-06-01")
-    ap.add_argument("--tag", default="lstm_ic_short_mf_h256_l2_w10")
+    ap.add_argument("--tag", default="lstm_ic_short_mf_decay_h256_l2_w10")
     ap.add_argument("--window", type=int, default=10)
     ap.add_argument("--hidden", type=int, default=256)
     ap.add_argument("--layers", type=int, default=2)
     ap.add_argument("--dropout", type=float, default=0.25)
     ap.add_argument("--epochs", type=int, default=12)
     ap.add_argument("--batch-cap", type=int, default=8192)
+    ap.add_argument("--half-life-days", type=float, default=180.0,
+                    help="Exponential recency half-life for training day IC loss; <=0 disables weighting.")
+    ap.add_argument("--min-date-weight", type=float, default=0.25,
+                    help="Floor weight for old training dates when recency weighting is enabled.")
     ap.add_argument("--n", type=int, default=10)
     ap.add_argument("--rebuild-cache", action="store_true")
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     args = ap.parse_args()
+    if not 0.0 <= args.min_date_weight <= 1.0:
+        raise ValueError("--min-date-weight must be in [0, 1]")
 
     torch.manual_seed(42)
     np.random.seed(42)
@@ -293,17 +371,35 @@ def main() -> None:
     log: list[dict] = []
     best_state = None
     for epoch in range(args.epochs):
-        tr = _run_epoch(model, train_sampler, train_ds, optim, args.device, "ic",
-                        train=True, batch_cap=args.batch_cap, scaler=scaler, amp=cfg.amp)
-        vl = _run_epoch(model, val_sampler, val_ds, optim, args.device, "ic",
-                        train=False, batch_cap=args.batch_cap, amp=cfg.amp)
+        tr = _run_epoch_weighted(
+            model, train_sampler, train_ds, optim, args.device,
+            train=True, train_end=args.train_end,
+            half_life_days=args.half_life_days,
+            min_date_weight=args.min_date_weight,
+            batch_cap=args.batch_cap, scaler=scaler, amp=cfg.amp,
+        )
+        vl = _run_epoch_weighted(
+            model, val_sampler, val_ds, optim, args.device,
+            train=False, train_end=args.train_end,
+            half_life_days=args.half_life_days,
+            min_date_weight=args.min_date_weight,
+            batch_cap=args.batch_cap, amp=cfg.amp,
+        )
         preds = _collect_preds(model, val_sampler, val_ds, args.device, batch_cap=args.batch_cap)
         m = summarize(preds)
         spread = topk_spread(preds, k=10)
         m["topk10_bp"] = float(spread["spread"].mean() * 1e4) if len(spread) else float("nan")
-        print(f"[ep {epoch}] train_loss={tr:.4f} val_loss={vl:.4f} "
+        print(f"[ep {epoch}] train_loss={tr['loss']:.4f} weighted={tr['weighted_loss']:.4f} "
+              f"mean_w={tr['mean_weight']:.3f} val_loss={vl['loss']:.4f} "
               f"IC={m['ic']:.4f} RankIC={m['rank_ic']:.4f} Top10bp={m['topk10_bp']:.1f}")
-        log.append({"epoch": epoch, "train_loss": tr, "val_loss": vl, **m})
+        log.append({
+            "epoch": epoch,
+            "train_loss": tr["loss"],
+            "train_weighted_loss": tr["weighted_loss"],
+            "train_mean_weight": tr["mean_weight"],
+            "val_loss": vl["loss"],
+            **m,
+        })
         if m["ic"] > best_ic:
             best_ic = m["ic"]
             best_state = {k: v.detach().cpu() for k, v in model.state_dict().items()}
