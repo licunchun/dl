@@ -28,7 +28,10 @@ def main() -> None:
     ap.add_argument("--val-end", default="2026-04-30")
     ap.add_argument("--batch-cap", type=int, default=2048)
     ap.add_argument("--window", type=int, default=20)
+    ap.add_argument("--device", default=None,
+                    help="Inference device. Defaults to cuda when available, else cpu.")
     args = ap.parse_args()
+    device = args.device or ("cuda" if torch.cuda.is_available() else "cpu")
 
     ckpt_path = PROJECT_ROOT / "checkpoints" / f"{args.tag}.pt"
     ckpt = torch.load(ckpt_path, map_location="cpu", weights_only=False)
@@ -44,8 +47,9 @@ def main() -> None:
         ckpt, model_name=args.model, n_features=len(feature_cols), window=args.window
     )
     model.load_state_dict(ckpt["model_state"])
+    model = model.to(device)
     model.eval()
-    preds = _collect_preds(model, val_sampler, val_ds, "cpu", batch_cap=args.batch_cap)
+    preds = _collect_preds(model, val_sampler, val_ds, device, batch_cap=args.batch_cap)
     out = PROJECT_ROOT / "checkpoints" / f"{args.tag}_val_preds.parquet"
     preds.to_parquet(out, index=False)
     print(f"[infer] wrote {out} shape={preds.shape}")
