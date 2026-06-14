@@ -1,0 +1,36 @@
+{
+  "created_at_run": "20260605",
+  "expression": "shock_reversal_5",
+  "factor_id": "F_VOL_REV_5",
+  "formula": "(1 - rank(ret_5)) * rank(amount_ratio_20)",
+  "formula_key": "(1-rank(ret_5))*rank(amount_ratio_20)",
+  "horizon_days": 5,
+  "name": "放量5日反转",
+  "provenance": {
+    "created_at_run": "20260605",
+    "evidence": [
+      "No live market events collected; continue with local data and historical factor memory."
+    ],
+    "hypothesis": "A股短期过度放量下跌后存在流动性恢复反弹，但需要控制ST、涨跌停和换手成本。",
+    "research_source_quality": {
+      "context_items": 0,
+      "coverage_ratio": 0.0,
+      "covered_kinds": [],
+      "error_sources": 0,
+      "fallback_used": true,
+      "missing_kinds": [
+        "community",
+        "factor_library",
+        "paper"
+      ],
+      "mode": "offline",
+      "ok_sources": 0,
+      "skipped_sources": 3,
+      "total_sources": 3
+    },
+    "source_idea_id": "R001",
+    "source_theme": "volume_shock_reversal"
+  },
+  "source_idea_id": "R001",
+  "status": "candidate"
+}

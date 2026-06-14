@@ -1,0 +1,67 @@
+<!doctype html><html><head><meta charset="utf-8"><title>A股 Alpha Discovery Narrative</title><style>body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;max-width:920px;margin:40px auto;padding:0 24px;line-height:1.55;color:#1f2937}h1,h2,h3{color:#111827}li{margin:.35rem 0}code{background:#f3f4f6;padding:.1rem .25rem;border-radius:4px}.meta{color:#6b7280;font-size:13px}</style></head><body><div class="meta">source sha256: 04ff704183235146d9fc973a0801761ae20b7017962f443bb33a0378444e786b</div><h1>A股 Alpha Discovery Narrative</h1>
+
+<h2>Current Status</h2>
+
+<p>The first discovery cycle completed data profiling, candidate generation, sanity pilots, narrowed validation, and Codex secondary review. No alpha is promoted.</p>
+
+<h2>Data Foundation</h2>
+
+<p>Local data root: `/home/lcc17/pan_sync_20260528`.</p>
+
+<p>The scanned dataset contains 12,915 files and about 15.321 GB. Raw CSV directories cover daily OHLCV, market metrics, moneyflow, ST status, index weights, market index data, and news. The usable first-pass path is raw CSV, because multiple parquet files fail column reads with pyarrow `OSError: Repetition level histogram size mismatch`.</p>
+
+<p>Key first-pass data risks:</p>
+
+<li>No explicit suspension, delisting, listing-date, corporate-action adjustment, or limit-up/limit-down table was found.</li>
+<li>ST status exists and is used.</li>
+<li>Limit and suspension handling is approximated from price moves and volume/amount.</li>
+<li>Precomputed label parquet files are not used for backtest returns.</li>
+
+<h2>Alpha Cycle 1</h2>
+
+<p>Initial candidates covered reversal, momentum, volatility, liquidity, turnover, size, and moneyflow. A 2026 sanity pilot showed positive short-window signals for:</p>
+
+<li>A003 20 日动量.</li>
+<li>A005 Amihud 流动性.</li>
+
+<p>A narrowed 2025-2026 H5 check overturned the short-window result:</p>
+
+<li>A003: RankIC -0.05216, cost-adjusted annual return proxy -0.5691, Sharpe proxy -1.268, max drawdown proxy -0.814.</li>
+<li>A005: RankIC -0.02938, cost-adjusted annual return proxy -0.4258, Sharpe proxy -1.180, max drawdown proxy -0.669.</li>
+
+<h2>Review Outcome</h2>
+
+<p>Codex secondary reviewer score: 1/10.</p>
+
+<p>Decision:</p>
+
+<li>A003 H5: kill.</li>
+<li>A005 H5: kill.</li>
+
+<p>The reviewer found that the negative conclusion is supported for these implementations, but current evidence does not rule out momentum or liquidity alphas in A 股 generally.</p>
+
+<h2>Repairs Applied</h2>
+
+<p>After review, the backtest script was repaired to:</p>
+
+<li>Separate point-in-time signal eligibility from next-day fill simulation.</li>
+<li>Correct H&gt;1 annualization scale.</li>
+<li>Mark long-short output as a diagnostic spread, not a directly tradable A 股 strategy.</li>
+<li>Use exit fillability to avoid counting returns from limit-down blocked exits.</li>
+
+<h2>Next Alpha Directions</h2>
+
+<p>The next cycle should pivot away from raw 20-day momentum and raw low-Amihud selection. Stronger candidates should use:</p>
+
+<li>Long-only tradable portfolio metrics.</li>
+<li>Cost and turnover penalties during candidate selection.</li>
+<li>Capacity filters based on amount and turnover.</li>
+<li>Market-state conditioning, especially avoiding single-window 2026 overfit.</li>
+<li>Signals that do not require future eligibility filters for IC calculation.</li>
+
+<p>Priority ideas:</p>
+
+<li>1. Liquidity-adjusted reversal after high turnover/volume shock, with low turnover holding filter.</li>
+<li>2. Moneyflow exhaustion: large/extra-large net inflow reversal after price extension.</li>
+<li>3. Industry/index-relative momentum using only point-in-time index-weight data if membership timing can be proven.</li>
+<li>4. Long-only low turnover quality/liquidity blend with explicit capacity cap.</li></body></html>

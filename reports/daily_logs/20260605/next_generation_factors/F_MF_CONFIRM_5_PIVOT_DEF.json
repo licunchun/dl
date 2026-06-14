@@ -1,0 +1,48 @@
+{
+  "expression": "moneyflow_confirmed_momentum",
+  "factor_id": "F_MF_CONFIRM_5_PIVOT_DEF",
+  "failed_issues": [
+    "non_positive_rankic",
+    "negative_long_short_diagnostic",
+    "unstable_rankic"
+  ],
+  "formula": "(rank(ret_5) * rank(mf_buy_pressure)) * rank(low_vol) * rank(liq_inv)",
+  "formula_key": "(rank(ret_5)*rank(mf_buy_pressure))*rank(low_vol)*rank(liq_inv)",
+  "horizon_days": 5,
+  "name": "资金流顺势确认 defensive interaction repair",
+  "parent_decision": "kill",
+  "parent_factor_id": "F_MF_CONFIRM_5",
+  "parent_metrics": {
+    "ann_return_net": 0.25602484882105814,
+    "max_drawdown": -0.3855220326138059,
+    "rankic_ir": -4.780344342857533,
+    "rankic_mean": -0.025440309268623222,
+    "rankic_positive_frac": 0.4166666666666667,
+    "turnover_mean": 0.60448191390979
+  },
+  "provenance": {
+    "critique_checks": {
+      "collinearity": {
+        "max_abs_corr": 0.7212752444961466,
+        "nearest_feature": "mf_buy_pressure",
+        "score": "pass"
+      },
+      "leakage": {
+        "expected_label_column": "forward_ret_5d",
+        "score": "pass",
+        "uses_future_named_field": false
+      },
+      "stability": {
+        "monthly_positive_fraction": 0.14285714285714285,
+        "positive_fraction": 0.4166666666666667,
+        "sample_days": 264,
+        "score": "fail"
+      }
+    },
+    "parent_factor_id": "F_MF_CONFIRM_5",
+    "parent_formula_key": "rank(ret_5)*rank(mf_buy_pressure)",
+    "source": "evolution_agent"
+  },
+  "rationale": "Parent had drawdown or stability issues; interact with defensive liquidity and low-vol filters.",
+  "status": "repair_candidate"
+}

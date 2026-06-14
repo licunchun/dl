@@ -1,0 +1,37 @@
+{
+  "updated_at": "2026-06-05T12:07:00+08:00",
+  "reviewer_backend": "codex",
+  "reviewer_model": "gpt-5.5",
+  "reviewer_difficulty": "nightmare",
+  "latest_batch": "A029_delayed_exit_gpu_rerun",
+  "latest_slurm_job": "29601",
+  "candidate_under_review": "A029_H5",
+  "reviewer_score": 5,
+  "decision": "repair",
+  "promote_allowed": false,
+  "cost_sensitivity": {
+    "cost_bps": [5.0, 10.0, 20.0, 30.0],
+    "long_short_ann_return_net": [0.04919740156922802, 0.0349640913645631, 0.006497470955233239, -0.02196914945409663],
+    "long_only_ann_return_net": [0.18055127519149888, 0.1733387907177123, 0.15891382177013919, 0.14448885282256604],
+    "long_only_sharpe_net": [1.2443855125597914, 1.1945865503271793, 1.0950003429376785, 0.9954329875414453]
+  },
+  "exposure": {
+    "test_size_corr": 0.43036738046027573,
+    "test_amount_corr": 0.018080996426798404
+  },
+  "blocking_findings": [
+    "delayed-exit repair is partial because unresolved exits after the max delay are still NaN and later dropped",
+    "exit fillability does not yet include suspension, exit-day volume or amount, ST transition, or delisting checks",
+    "H5 accounting remains diagnostic and lacks a true multi-day sub-book cash/position ledger",
+    "A-share long-short result is diagnostic and not directly tradable",
+    "A029 H5 has material size exposure and no industry/size neutralization",
+    "high-cost long-short net return still turns negative at 30 bps"
+  ],
+  "next_actions": [
+    "implement a true staggered long-only portfolio ledger with delayed sells and carried unfilled positions",
+    "treat unresolved exits after max delay as forced liquidation or explicit adverse outcomes",
+    "add exit fillability checks for suspension, zero or low volume, low amount, ST transitions, and delisting",
+    "add size-neutral and industry-neutral diagnostics",
+    "audit raw versus adjusted close behavior around corporate actions"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "created_at_run": "20260605",
+  "expression": "value_liquidity_defensive",
+  "factor_id": "F_VALUE_LIQ_DEF_5",
+  "formula": "(rank(pb_inv) + rank(liq_inv) + rank(low_vol)) / 3",
+  "formula_key": "(rank(pb_inv)+rank(liq_inv)+rank(low_vol))/3",
+  "horizon_days": 5,
+  "name": "价值流动性防御",
+  "provenance": {
+    "created_at_run": "20260605",
+    "evidence": [
+      "No live market events collected; continue with local data and historical factor memory."
+    ],
+    "hypothesis": "低波动、高流动性、低PB组合可能在A股中低频长仓中提供更稳定风险调整收益。",
+    "research_source_quality": {
+      "context_items": 0,
+      "coverage_ratio": 0.0,
+      "covered_kinds": [],
+      "error_sources": 0,
+      "fallback_used": true,
+      "missing_kinds": [
+        "community",
+        "factor_library",
+        "paper"
+      ],
+      "mode": "offline",
+      "ok_sources": 0,
+      "skipped_sources": 3,
+      "total_sources": 3
+    },
+    "source_idea_id": "R003",
+    "source_theme": "defensive_liquidity_value"
+  },
+  "source_idea_id": "R003",
+  "status": "candidate"
+}

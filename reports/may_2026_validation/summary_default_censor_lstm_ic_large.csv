@@ -1,0 +1,2 @@
+tag,model,window,samples,preds,ic,rank_ic,icir,diracc,n_days,top10_spread_bp,bt_annualised,bt_sharpe,bt_max_drawdown,bt_n_days
+lstm_ic_large,lstm,20,58404,reports/may_2026_validation/lstm_ic_large_may_preds.parquet,-0.024380830099974878,-0.018462517029238137,-4.066519620309967,0.578509833191954,16,33.15398034192185,-0.8885927715599939,-6.644715137520862,-0.13331525104857567,15

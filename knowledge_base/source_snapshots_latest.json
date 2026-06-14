@@ -1,0 +1,43 @@
+{
+  "agent": "research_agent",
+  "item_count": 0,
+  "items": [],
+  "run_date": "20260605",
+  "snapshot_written_at": "2026-06-04T22:41:00.361287+00:00",
+  "source_quality": {
+    "context_items": 0,
+    "coverage_ratio": 0.0,
+    "covered_kinds": [],
+    "error_sources": 0,
+    "fallback_used": true,
+    "missing_kinds": [
+      "community",
+      "factor_library",
+      "paper"
+    ],
+    "mode": "offline",
+    "ok_sources": 0,
+    "skipped_sources": 3,
+    "total_sources": 3
+  },
+  "source_status": [
+    {
+      "kind": "paper",
+      "name": "arxiv_quant_finance",
+      "status": "skipped_offline",
+      "url": "https://arxiv.org/list/q-fin/recent"
+    },
+    {
+      "kind": "factor_library",
+      "name": "worldquant_101_formulaic_alphas",
+      "status": "skipped_offline",
+      "url": "https://arxiv.org/abs/1601.00991"
+    },
+    {
+      "kind": "community",
+      "name": "quantconnect_research",
+      "status": "skipped_offline",
+      "url": "https://www.quantconnect.com/research"
+    }
+  ]
+}

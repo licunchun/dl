@@ -333,6 +333,7 @@ def main() -> None:
     ap.add_argument("--layers", type=int, default=2)
     ap.add_argument("--dropout", type=float, default=0.25)
     ap.add_argument("--epochs", type=int, default=12)
+    ap.add_argument("--lr", type=float, default=1e-3)
     ap.add_argument("--batch-cap", type=int, default=8192)
     ap.add_argument("--half-life-days", type=float, default=180.0,
                     help="Exponential recency half-life for training day IC loss; <=0 disables weighting.")
@@ -365,7 +366,7 @@ def main() -> None:
 
     model = build_model("lstm", len(feature_cols), args.window,
                         hidden=args.hidden, layers=args.layers, dropout=args.dropout).to(args.device)
-    optim = torch.optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-5)
+    optim = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=1e-5)
     scaler = torch.cuda.amp.GradScaler(enabled=cfg.amp)
     best_ic = -float("inf")
     log: list[dict] = []
@@ -415,11 +416,14 @@ def main() -> None:
     targets = _predict_target(args, model, feature_cols, panel)
     DAILY_LOGS.mkdir(parents=True, exist_ok=True)
     target_path = DAILY_LOGS / f"{args.target_date.replace('-', '')}_short_term_targets.csv"
+    tagged_target_path = DAILY_LOGS / f"{args.target_date.replace('-', '')}_short_term_targets_{args.tag}.csv"
     targets.to_csv(target_path, index=False, encoding="utf-8-sig")
+    targets.to_csv(tagged_target_path, index=False, encoding="utf-8-sig")
     print("[short] best_val", summarize(preds))
     print("[short] backtest", stats)
     print(f"[short] wrote {preds_path}")
     print(f"[short] wrote {target_path}")
+    print(f"[short] wrote {tagged_target_path}")
     print(targets.to_string(index=False))
 
 

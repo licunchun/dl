@@ -1,0 +1,2 @@
+tag,model,window,samples,preds,ic,rank_ic,icir,diracc,n_days,top10_spread_bp,bt_annualised,bt_sharpe,bt_max_drawdown,bt_n_days
+sklearn_sgd_2025_w5_e2_hl60,sklearn_sgd,5,65536,reports/may_2026_validation/sklearn_sgd_2025_w5_e2_hl60_may_preds.parquet,0.035279184991489375,0.04930069376634931,7.495489762844816,0.48983273186919996,16,29.159262261600816,-0.4744813676952149,-2.0922480679908833,-0.07686187241752074,15

@@ -1,0 +1,137 @@
+{
+  "agent": "critic_agent",
+  "critiques": [
+    {
+      "checks": {
+        "collinearity": {
+          "max_abs_corr": 0.41713646913577146,
+          "nearest_feature": "ret_5",
+          "score": "pass"
+        },
+        "leakage": {
+          "expected_label_column": "forward_ret_5d",
+          "score": "pass",
+          "uses_future_named_field": false
+        },
+        "stability": {
+          "monthly_positive_fraction": 0.7857142857142857,
+          "positive_fraction": 0.6946564885496184,
+          "sample_days": 262,
+          "score": "pass"
+        }
+      },
+      "decision": "kill",
+      "factor_id": "F_VOL_REV_5",
+      "issues": [
+        "large_drawdown"
+      ],
+      "leakage_check": "pass"
+    },
+    {
+      "checks": {
+        "collinearity": {
+          "max_abs_corr": 0.5552046317401809,
+          "nearest_feature": "vwap_dev",
+          "score": "pass"
+        },
+        "leakage": {
+          "expected_label_column": "forward_ret_5d",
+          "score": "pass",
+          "uses_future_named_field": false
+        },
+        "stability": {
+          "monthly_positive_fraction": 0.9285714285714286,
+          "positive_fraction": 0.5801526717557252,
+          "sample_days": 262,
+          "score": "pass"
+        }
+      },
+      "decision": "promote",
+      "factor_id": "F_VWAP_REV_5",
+      "issues": [],
+      "leakage_check": "pass"
+    },
+    {
+      "checks": {
+        "collinearity": {
+          "max_abs_corr": 0.5873182946923945,
+          "nearest_feature": "mf_buy_pressure",
+          "score": "pass"
+        },
+        "leakage": {
+          "expected_label_column": "forward_ret_5d",
+          "score": "pass",
+          "uses_future_named_field": false
+        },
+        "stability": {
+          "monthly_positive_fraction": 0.8571428571428571,
+          "positive_fraction": 0.6060606060606061,
+          "sample_days": 264,
+          "score": "pass"
+        }
+      },
+      "decision": "kill",
+      "factor_id": "F_MF_EXHAUST_5",
+      "issues": [
+        "large_drawdown",
+        "negative_long_short_diagnostic"
+      ],
+      "leakage_check": "pass"
+    },
+    {
+      "checks": {
+        "collinearity": {
+          "max_abs_corr": 0.7212752444961466,
+          "nearest_feature": "mf_buy_pressure",
+          "score": "pass"
+        },
+        "leakage": {
+          "expected_label_column": "forward_ret_5d",
+          "score": "pass",
+          "uses_future_named_field": false
+        },
+        "stability": {
+          "monthly_positive_fraction": 0.14285714285714285,
+          "positive_fraction": 0.4166666666666667,
+          "sample_days": 264,
+          "score": "fail"
+        }
+      },
+      "decision": "kill",
+      "factor_id": "F_MF_CONFIRM_5",
+      "issues": [
+        "non_positive_rankic",
+        "negative_long_short_diagnostic",
+        "unstable_rankic"
+      ],
+      "leakage_check": "pass"
+    },
+    {
+      "checks": {
+        "collinearity": {
+          "max_abs_corr": 0.7228615412754146,
+          "nearest_feature": "pb_inv",
+          "score": "pass"
+        },
+        "leakage": {
+          "expected_label_column": "forward_ret_5d",
+          "score": "pass",
+          "uses_future_named_field": false
+        },
+        "stability": {
+          "monthly_positive_fraction": 0.7857142857142857,
+          "positive_fraction": 0.6130268199233716,
+          "sample_days": 261,
+          "score": "pass"
+        }
+      },
+      "decision": "kill",
+      "factor_id": "F_VALUE_LIQ_DEF_5",
+      "issues": [
+        "negative_long_short_diagnostic"
+      ],
+      "leakage_check": "pass"
+    }
+  ],
+  "run_date": "20260605"
+}

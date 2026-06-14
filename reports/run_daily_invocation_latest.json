@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "/home/lcc17/dl/agent/run_entrypoint.py"
+  ],
+  "config_loaded": true,
+  "cwd": "/home/lcc17/dl",
+  "duration_sec": 164.885,
+  "entrypoint_command": "bash run_daily.sh",
+  "entrypoint_script": "/home/lcc17/dl/run_daily.sh",
+  "entrypoint_script_exists": true,
+  "exit_code": 0,
+  "finished_at": "2026-06-04T22:43:45.229345+00:00",
+  "host": "login",
+  "knowledge_root": "knowledge_base",
+  "offline": true,
+  "output_root": "reports",
+  "pid": 3866620,
+  "run_date": "20260605",
+  "shell_entrypoint": true,
+  "started_at": "2026-06-04T22:41:00.344459+00:00",
+  "status": "success"
+}

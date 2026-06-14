@@ -1,0 +1,36 @@
+{
+  "created_at_run": "20260605",
+  "expression": "moneyflow_confirmed_momentum",
+  "factor_id": "F_MF_CONFIRM_5",
+  "formula": "rank(ret_5) * rank(mf_buy_pressure)",
+  "formula_key": "rank(ret_5)*rank(mf_buy_pressure)",
+  "horizon_days": 5,
+  "name": "资金流顺势确认",
+  "provenance": {
+    "created_at_run": "20260605",
+    "evidence": [
+      "No live market events collected; continue with local data and historical factor memory."
+    ],
+    "hypothesis": "大单/超大单买入压力与价格延伸叠加后可能出现短期耗尽或确认效应。",
+    "research_source_quality": {
+      "context_items": 0,
+      "coverage_ratio": 0.0,
+      "covered_kinds": [],
+      "error_sources": 0,
+      "fallback_used": true,
+      "missing_kinds": [
+        "community",
+        "factor_library",
+        "paper"
+      ],
+      "mode": "offline",
+      "ok_sources": 0,
+      "skipped_sources": 3,
+      "total_sources": 3
+    },
+    "source_idea_id": "R002",
+    "source_theme": "moneyflow_exhaustion"
+  },
+  "source_idea_id": "R002",
+  "status": "candidate"
+}

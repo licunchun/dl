@@ -31,11 +31,14 @@ def _is_board_limit(row_pct: pd.Series) -> pd.Series:
     return row_pct.abs() >= LIMIT_SOFT
 
 
-def attach_labels(panel: pd.DataFrame) -> pd.DataFrame:
+def attach_labels(panel: pd.DataFrame, drop_limit_tomorrow: bool = True) -> pd.DataFrame:
     """Expects the raw panel (with pct_chg / close) sorted by (ts_code, date).
 
     Returns a frame with columns [ts_code, trade_date, y, y_raw, drop_reason]
     where ``drop_reason`` is non-empty for rows that should be excluded.
+    Set ``drop_limit_tomorrow=False`` for leakage-free validation/evaluation:
+    tomorrow's limit move is not known at decision time and must not censor the
+    scored universe.
     """
     p = panel.sort_values(["ts_code", "trade_date"]).reset_index(drop=True)
     g = p.groupby("ts_code", sort=False)
@@ -44,7 +47,7 @@ def attach_labels(panel: pd.DataFrame) -> pd.DataFrame:
 
     y_raw = np.log(next_close / p["close"])
     # Drop limit days on t+1 (can't buy at limit-up open) and suspensions.
-    hit_next_limit = _is_board_limit(next_pct.fillna(0))
+    hit_next_limit = _is_board_limit(next_pct.fillna(0)) if drop_limit_tomorrow else pd.Series(False, index=p.index)
     suspended = next_close.isna()
     # Also drop rows where today's pct_chg NaN (first listing day after filter).
     bad_today = p["pct_chg"].isna()

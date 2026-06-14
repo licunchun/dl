@@ -18,6 +18,7 @@ import numpy as np
 import pandas as pd
 import torch
 
+from . import data_loader as dl
 from .data_loader import PROJECT_ROOT, load_panel, load_basic, load_trade_cal
 from .features import compute_features, list_feature_cols
 from .labels import attach_labels
@@ -26,6 +27,33 @@ from .train import build_model_from_checkpoint
 
 CHECKPOINTS = PROJECT_ROOT / "checkpoints"
 DAILY_LOGS = PROJECT_ROOT / "reports" / "daily_logs"
+
+
+def _configure_data_dir(data_dir: Path) -> None:
+    dl.DATA_DIR = Path(data_dir)
+    dl.PANEL_CACHE = dl.DATA_DIR / "panel.parquet"
+    dl.load_basic.cache_clear()
+    dl.load_trade_cal.cache_clear()
+
+
+def _load_panel_for_asof(asof_date: pd.Timestamp, data_dir: Path | None = None,
+                         cache_dir: Path | None = None,
+                         rebuild_cache: bool = False) -> pd.DataFrame:
+    if data_dir is None:
+        return load_panel()
+
+    _configure_data_dir(data_dir)
+    cache_dir = cache_dir or (Path(data_dir) / "daily_predict_cache")
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    panel_cache = cache_dir / f"panel_2019-01-01_{asof_date.strftime('%Y-%m-%d')}.parquet"
+    if panel_cache.exists() and not rebuild_cache:
+        return pd.read_parquet(panel_cache)
+    return dl.build_panel(dl.PanelBuildConfig(
+        start="2019-01-01",
+        end=asof_date.strftime("%Y-%m-%d"),
+        cache_path=panel_cache,
+        include_metric=True,
+    ))
 
 
 def _next_trading_date(asof_date: pd.Timestamp) -> pd.Timestamp:
@@ -53,22 +81,40 @@ def _checkpoint_path(model_name: str, tag: str | None = None) -> Path:
 
 def predict_for_date(model_name: str, date: pd.Timestamp, n: int = 10,
                      window: int = 20, device: str = None,
-                     tag: str | None = None) -> pd.DataFrame:
+                     tag: str | None = None,
+                     data_dir: Path | None = None,
+                     cache_dir: Path | None = None,
+                     rebuild_cache: bool = False,
+                     direction: str = "forward") -> pd.DataFrame:
     device = device or ("cuda" if torch.cuda.is_available() else "cpu")
     asof_date = pd.Timestamp(date)
+    if data_dir is not None:
+        _configure_data_dir(data_dir)
     target_trade_date = _next_trading_date(asof_date)
     ckpt_path = _checkpoint_path(model_name, tag)
     ckpt = torch.load(ckpt_path, map_location=device, weights_only=False)
     feature_cols = ckpt["feature_cols"]
     window = int(ckpt.get("cfg", {}).get("window", window))
 
-    panel = load_panel()
-    panel = panel[panel["trade_date"] <= asof_date]
-    feats = compute_features(panel)
-    labels = attach_labels(panel)
-    # Keep enough history for the sliding window, then select samples ending at asof_date.
+    panel = _load_panel_for_asof(asof_date, data_dir, cache_dir, rebuild_cache)
+    panel = panel[panel["trade_date"] <= asof_date].copy()
+    last_day = panel[panel["trade_date"] == asof_date].copy()
+    if last_day.empty:
+        raise ValueError(f"No panel rows for as-of date {asof_date.date()}")
+
+    # Feature rows are shifted by one day.  For a pre-market decision on the
+    # next trading day, append a synthetic target-day row so the sample ending
+    # on target_trade_date uses information through asof_date, not asof_date-1.
+    synth = last_day.copy()
+    synth["trade_date"] = target_trade_date
+    synth["pct_chg"] = 0.0
+    target_panel = pd.concat([panel, synth], ignore_index=True)
+
+    feats = compute_features(target_panel)
+    labels = attach_labels(target_panel)
+    # Keep enough history for the sliding window, then select target-day samples.
     ds = WindowDataset(feats, labels, feature_cols, window=window,
-                       date_range=(str(asof_date - pd.Timedelta(days=120)), str(asof_date)),
+                       date_range=(str(asof_date - pd.Timedelta(days=160)), str(target_trade_date)),
                        drop_missing_label=False)
 
     model = build_model_from_checkpoint(
@@ -77,8 +123,8 @@ def predict_for_date(model_name: str, date: pd.Timestamp, n: int = 10,
     model.load_state_dict(ckpt["model_state"])
     model.to(device).eval()
 
-    # Build predictions just for samples whose end date == the requested date
-    target_day = np.datetime64(asof_date.to_datetime64(), "D")
+    # Build predictions just for samples whose end date is the target session.
+    target_day = np.datetime64(target_trade_date.to_datetime64(), "D")
     rows: list[dict] = []
     for i, s in enumerate(ds.samples):
         end_date = np.datetime64(ds.blocks_dates[s.stock_idx][s.end_row], "D")
@@ -86,8 +132,9 @@ def predict_for_date(model_name: str, date: pd.Timestamp, n: int = 10,
             continue
         x, _, si, _ = ds[i]
         with torch.no_grad():
-            p = float(model(x.unsqueeze(0).to(device)).cpu().item())
-        rows.append({"ts_code": ds.ts_codes[int(si)], "y_pred": p})
+            raw = float(model(x.unsqueeze(0).to(device)).cpu().item())
+        score = -raw if direction == "inverse" else raw
+        rows.append({"ts_code": ds.ts_codes[int(si)], "y_pred": raw, "strategy_score": score})
 
     if not rows:
         return pd.DataFrame(columns=[
@@ -95,16 +142,17 @@ def predict_for_date(model_name: str, date: pd.Timestamp, n: int = 10,
             "name", "industry", "ref_vwap", "ref_close",
         ])
 
-    df = pd.DataFrame(rows).sort_values("y_pred", ascending=False).head(n)
+    df = pd.DataFrame(rows).sort_values("strategy_score", ascending=False).head(n)
     df.insert(0, "rank", np.arange(1, len(df) + 1))
     df.insert(1, "asof_date", asof_date.strftime("%Y-%m-%d"))
     df.insert(2, "target_trade_date", target_trade_date.strftime("%Y-%m-%d"))
+    df.insert(3, "direction", direction)
 
     basic = load_basic()[["ts_code", "name", "industry"]]
     df = df.merge(basic, on="ts_code", how="left")
 
     # Reference price = last known vwap, for limit-order anchoring
-    last = panel[panel["trade_date"] == asof_date].set_index("ts_code")
+    last = last_day.set_index("ts_code")
     df["ref_vwap"] = df["ts_code"].map(last["vwap"]) if "vwap" in last.columns else np.nan
     df["ref_close"] = df["ts_code"].map(last["close"])
     return df
@@ -118,11 +166,23 @@ def main() -> None:
     ap.add_argument("--tag", default=None,
                     help="Checkpoint tag, e.g. transformer_ic_large. Defaults to <model>_ic/<model>_mse.")
     ap.add_argument("--n", type=int, default=10)
+    ap.add_argument("--direction", choices=["forward", "inverse"], default="forward",
+                    help="Rank high raw predictions (forward) or low raw predictions (inverse).")
+    ap.add_argument("--data-dir", type=Path, default=None,
+                    help="Optional current raw data directory, e.g. synced competition data.")
+    ap.add_argument("--cache-dir", type=Path, default=None,
+                    help="Panel cache directory used with --data-dir.")
+    ap.add_argument("--rebuild-cache", action="store_true")
     args = ap.parse_args()
 
     d = pd.Timestamp(args.date)
     DAILY_LOGS.mkdir(parents=True, exist_ok=True)
-    targets = predict_for_date(args.model, d, n=args.n, tag=args.tag)
+    targets = predict_for_date(
+        args.model, d, n=args.n, tag=args.tag,
+        data_dir=args.data_dir, cache_dir=args.cache_dir,
+        rebuild_cache=args.rebuild_cache,
+        direction=args.direction,
+    )
     target = pd.Timestamp(targets["target_trade_date"].iloc[0]) if len(targets) else _next_trading_date(d)
     out = DAILY_LOGS / f"{target.strftime('%Y%m%d')}_targets.csv"
     targets.to_csv(out, index=False, encoding="utf-8-sig")

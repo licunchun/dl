@@ -1,0 +1,104 @@
+{
+  "agent": "research_agent",
+  "ideas": [
+    {
+      "evidence": [
+        "No live market events collected; continue with local data and historical factor memory."
+      ],
+      "hypothesis": "A股短期过度放量下跌后存在流动性恢复反弹，但需要控制ST、涨跌停和换手成本。",
+      "idea_id": "R001",
+      "preferred_horizon_days": [
+        1,
+        5
+      ],
+      "required_fields": [
+        "ret_1",
+        "ret_5",
+        "amount_ratio_20",
+        "turnover_rate"
+      ],
+      "status": "candidate",
+      "theme": "volume_shock_reversal"
+    },
+    {
+      "evidence": [
+        "No live market events collected; continue with local data and historical factor memory."
+      ],
+      "hypothesis": "大单/超大单买入压力与价格延伸叠加后可能出现短期耗尽或确认效应。",
+      "idea_id": "R002",
+      "preferred_horizon_days": [
+        5,
+        10
+      ],
+      "required_fields": [
+        "mf_buy_pressure",
+        "ret_5",
+        "amount"
+      ],
+      "status": "candidate",
+      "theme": "moneyflow_exhaustion"
+    },
+    {
+      "evidence": [
+        "No live market events collected; continue with local data and historical factor memory."
+      ],
+      "hypothesis": "低波动、高流动性、低PB组合可能在A股中低频长仓中提供更稳定风险调整收益。",
+      "idea_id": "R003",
+      "preferred_horizon_days": [
+        5,
+        20
+      ],
+      "required_fields": [
+        "std_20",
+        "amihud_20",
+        "pb"
+      ],
+      "status": "candidate",
+      "theme": "defensive_liquidity_value"
+    }
+  ],
+  "notes": "MVP uses durable local priors plus daily event titles; live research sources are best-effort and auditable.",
+  "research_context": [],
+  "run_date": "20260605",
+  "source_quality": {
+    "context_items": 0,
+    "coverage_ratio": 0.0,
+    "covered_kinds": [],
+    "error_sources": 0,
+    "fallback_used": true,
+    "missing_kinds": [
+      "community",
+      "factor_library",
+      "paper"
+    ],
+    "mode": "offline",
+    "ok_sources": 0,
+    "skipped_sources": 3,
+    "total_sources": 3
+  },
+  "source_snapshot": {
+    "item_count": 0,
+    "knowledge_path": "knowledge_base/source_snapshots.jsonl",
+    "run_path": "reports/daily_logs/20260605/source_snapshots/research_agent.json"
+  },
+  "source_status": [
+    {
+      "kind": "paper",
+      "name": "arxiv_quant_finance",
+      "status": "skipped_offline",
+      "url": "https://arxiv.org/list/q-fin/recent"
+    },
+    {
+      "kind": "factor_library",
+      "name": "worldquant_101_formulaic_alphas",
+      "status": "skipped_offline",
+      "url": "https://arxiv.org/abs/1601.00991"
+    },
+    {
+      "kind": "community",
+      "name": "quantconnect_research",
+      "status": "skipped_offline",
+      "url": "https://www.quantconnect.com/research"
+    }
+  ]
+}

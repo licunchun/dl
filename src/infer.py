@@ -27,7 +27,8 @@ def main() -> None:
     ap.add_argument("--val-start", default="2025-01-01")
     ap.add_argument("--val-end", default="2026-04-30")
     ap.add_argument("--batch-cap", type=int, default=2048)
-    ap.add_argument("--window", type=int, default=20)
+    ap.add_argument("--window", type=int, default=None,
+                    help="Override checkpoint window. Defaults to checkpoint cfg.window.")
     ap.add_argument("--device", default=None,
                     help="Inference device. Defaults to cuda when available, else cpu.")
     args = ap.parse_args()
@@ -38,13 +39,14 @@ def main() -> None:
     feature_cols = ckpt["feature_cols"]
 
     feats, labels = _load_or_build_features_labels()
-    val_ds = WindowDataset(feats, labels, feature_cols, args.window,
+    window = args.window or int(ckpt.get("cfg", {}).get("window", 20))
+    val_ds = WindowDataset(feats, labels, feature_cols, window,
                            date_range=(args.val_start, args.val_end))
     val_sampler = DayBatchSampler(val_ds, shuffle=False, min_stocks=100)
     print(f"[infer] val days: {len(val_sampler)}  samples: {len(val_ds)}")
 
     model = build_model_from_checkpoint(
-        ckpt, model_name=args.model, n_features=len(feature_cols), window=args.window
+        ckpt, model_name=args.model, n_features=len(feature_cols), window=window
     )
     model.load_state_dict(ckpt["model_state"])
     model = model.to(device)

@@ -1,0 +1,46 @@
+{
+  "expression": "shock_reversal_5",
+  "factor_id": "F_VOL_REV_5_PIVOT_DEF",
+  "failed_issues": [
+    "large_drawdown"
+  ],
+  "formula": "((1 - rank(ret_5)) * rank(amount_ratio_20)) * rank(low_vol) * rank(liq_inv)",
+  "formula_key": "((1-rank(ret_5))*rank(amount_ratio_20))*rank(low_vol)*rank(liq_inv)",
+  "horizon_days": 5,
+  "name": "放量5日反转 defensive interaction repair",
+  "parent_decision": "kill",
+  "parent_factor_id": "F_VOL_REV_5",
+  "parent_metrics": {
+    "ann_return_net": 0.31005473115876064,
+    "max_drawdown": -0.4013747421865377,
+    "rankic_ir": 7.8213570678984246,
+    "rankic_mean": 0.03684842629163992,
+    "rankic_positive_frac": 0.6946564885496184,
+    "turnover_mean": 0.5194198210348835
+  },
+  "provenance": {
+    "critique_checks": {
+      "collinearity": {
+        "max_abs_corr": 0.41713646913577146,
+        "nearest_feature": "ret_5",
+        "score": "pass"
+      },
+      "leakage": {
+        "expected_label_column": "forward_ret_5d",
+        "score": "pass",
+        "uses_future_named_field": false
+      },
+      "stability": {
+        "monthly_positive_fraction": 0.7857142857142857,
+        "positive_fraction": 0.6946564885496184,
+        "sample_days": 262,
+        "score": "pass"
+      }
+    },
+    "parent_factor_id": "F_VOL_REV_5",
+    "parent_formula_key": "(1-rank(ret_5))*rank(amount_ratio_20)",
+    "source": "evolution_agent"
+  },
+  "rationale": "Parent had drawdown or stability issues; interact with defensive liquidity and low-vol filters.",
+  "status": "repair_candidate"
+}

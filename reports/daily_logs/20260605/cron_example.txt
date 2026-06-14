@@ -1,0 +1,2 @@
+# Example daily cron entry. Review before installing with crontab -e.
+30 18 * * * cd /home/lcc17/dl && bash /home/lcc17/dl/run_daily.sh >> /home/lcc17/dl/reports/daily_cron.log 2>&1

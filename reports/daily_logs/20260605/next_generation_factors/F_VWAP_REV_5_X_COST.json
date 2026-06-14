@@ -1,0 +1,44 @@
+{
+  "expression": "vwap_shock_reversal",
+  "factor_id": "F_VWAP_REV_5_X_COST",
+  "failed_issues": [],
+  "formula": "(1 - rank(vwap_dev)) * rank(amount_ratio_20) * (1 - rank(turnover_20))",
+  "formula_key": "(1-rank(vwap_dev))*rank(amount_ratio_20)*(1-rank(turnover_20))",
+  "horizon_days": 5,
+  "name": "VWAP放量反转 cost-aware variant",
+  "parent_decision": "promote",
+  "parent_factor_id": "F_VWAP_REV_5",
+  "parent_metrics": {
+    "ann_return_net": 0.3282130614896288,
+    "max_drawdown": -0.3759502934573731,
+    "rankic_ir": 3.270033777398576,
+    "rankic_mean": 0.018749422292372215,
+    "rankic_positive_frac": 0.5801526717557252,
+    "turnover_mean": 0.692008205322653
+  },
+  "provenance": {
+    "critique_checks": {
+      "collinearity": {
+        "max_abs_corr": 0.5552046317401809,
+        "nearest_feature": "vwap_dev",
+        "score": "pass"
+      },
+      "leakage": {
+        "expected_label_column": "forward_ret_5d",
+        "score": "pass",
+        "uses_future_named_field": false
+      },
+      "stability": {
+        "monthly_positive_fraction": 0.9285714285714286,
+        "positive_fraction": 0.5801526717557252,
+        "sample_days": 262,
+        "score": "pass"
+      }
+    },
+    "parent_factor_id": "F_VWAP_REV_5",
+    "parent_formula_key": "(1-rank(vwap_dev))*rank(amount_ratio_20)",
+    "source": "evolution_agent"
+  },
+  "rationale": "Promoted parent gets a lower-turnover robustness variant for cost sensitivity.",
+  "status": "next_generation_candidate"
+}

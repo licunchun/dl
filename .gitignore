@@ -8,14 +8,25 @@ __pycache__/
 runs/
 checkpoints/
 *.pt
+*.pth
+*.ckpt
+*.pkl
+*.joblib
+*.onnx
+*.h5
 *.parquet
 reports/figures/*.png
 reports/daily_logs/*.csv
 !reports/daily_logs/.gitkeep
 reports/slurm/*.out
 reports/slurm/*.err
+*.pid
+*.nohup.log
 
 # Local agent/runtime state
+.agents/
+.aris/
+.claude/
 .codex/
 .omx/
 

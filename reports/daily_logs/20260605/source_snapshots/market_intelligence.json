@@ -1,0 +1,71 @@
+{
+  "agent": "market_intelligence",
+  "item_count": 1,
+  "items": [
+    {
+      "date": "20260605",
+      "kind": "market_context",
+      "source": "offline_fallback",
+      "title": "No live market events collected; continue with local data and historical factor memory.",
+      "url": null
+    }
+  ],
+  "run_date": "20260605",
+  "snapshot_written_at": "2026-06-04T22:41:00.355126+00:00",
+  "source_quality": {
+    "coverage_ratio": 0.0,
+    "covered_kinds": [],
+    "error_sources": 0,
+    "fallback_used": true,
+    "live_events": 0,
+    "missing_kinds": [
+      "announcement",
+      "industry",
+      "news",
+      "policy",
+      "research_context"
+    ],
+    "mode": "offline",
+    "ok_sources": 0,
+    "skipped_sources": 6,
+    "total_sources": 6
+  },
+  "source_status": [
+    {
+      "kind": "announcement",
+      "name": "sse_disclosure",
+      "status": "skipped_offline",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/rss.xml"
+    },
+    {
+      "kind": "announcement",
+      "name": "szse_disclosure",
+      "status": "skipped_offline",
+      "url": "https://www.szse.cn/disclosure/listed/notice/index.html"
+    },
+    {
+      "kind": "news",
+      "name": "eastmoney_market_news",
+      "status": "skipped_offline",
+      "url": "https://finance.eastmoney.com/"
+    },
+    {
+      "kind": "policy",
+      "name": "csrc_policy",
+      "status": "skipped_offline",
+      "url": "https://www.csrc.gov.cn/"
+    },
+    {
+      "kind": "industry",
+      "name": "sina_industry",
+      "status": "skipped_offline",
+      "url": "https://finance.sina.com.cn/stock/"
+    },
+    {
+      "kind": "research_context",
+      "name": "cninfo_research_context",
+      "status": "skipped_offline",
+      "url": "https://www.cninfo.com.cn/"
+    }
+  ]
+}

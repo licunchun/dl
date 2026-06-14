@@ -1,0 +1,19 @@
+[
+  {
+    "tag": "lstm_ic_large",
+    "model": "lstm",
+    "window": 20,
+    "samples": 58404,
+    "preds": "reports/may_2026_validation/lstm_ic_large_may_preds.parquet",
+    "ic": -0.024380830099974878,
+    "rank_ic": -0.018462517029238137,
+    "icir": -4.066519620309967,
+    "diracc": 0.578509833191954,
+    "n_days": 16,
+    "top10_spread_bp": 33.15398034192185,
+    "bt_annualised": -0.8885927715599939,
+    "bt_sharpe": -6.644715137520862,
+    "bt_max_drawdown": -0.13331525104857567,
+    "bt_n_days": 15
+  }
+]

@@ -1,0 +1,46 @@
+{
+  "expression": "value_liquidity_defensive",
+  "factor_id": "F_VALUE_LIQ_DEF_5_PIVOT_INTERACT",
+  "failed_issues": [
+    "negative_long_short_diagnostic"
+  ],
+  "formula": "((rank(pb_inv) + rank(liq_inv) + rank(low_vol)) / 3) * rank(amount_ratio_20)",
+  "formula_key": "((rank(pb_inv)+rank(liq_inv)+rank(low_vol))/3)*rank(amount_ratio_20)",
+  "horizon_days": 5,
+  "name": "价值流动性防御 interaction pivot",
+  "parent_decision": "kill",
+  "parent_factor_id": "F_VALUE_LIQ_DEF_5",
+  "parent_metrics": {
+    "ann_return_net": 0.1845167877517911,
+    "max_drawdown": -0.3542010140412569,
+    "rankic_ir": 3.800101562536554,
+    "rankic_mean": 0.034386716498860145,
+    "rankic_positive_frac": 0.6130268199233716,
+    "turnover_mean": 0.046017238975981256
+  },
+  "provenance": {
+    "critique_checks": {
+      "collinearity": {
+        "max_abs_corr": 0.7228615412754146,
+        "nearest_feature": "pb_inv",
+        "score": "pass"
+      },
+      "leakage": {
+        "expected_label_column": "forward_ret_5d",
+        "score": "pass",
+        "uses_future_named_field": false
+      },
+      "stability": {
+        "monthly_positive_fraction": 0.7857142857142857,
+        "positive_fraction": 0.6130268199233716,
+        "sample_days": 261,
+        "score": "pass"
+      }
+    },
+    "parent_factor_id": "F_VALUE_LIQ_DEF_5",
+    "parent_formula_key": "(rank(pb_inv)+rank(liq_inv)+rank(low_vol))/3",
+    "source": "evolution_agent"
+  },
+  "rationale": "No specific repair trigger matched; require an interaction variant rather than repeating the raw formula.",
+  "status": "repair_or_pivot"
+}

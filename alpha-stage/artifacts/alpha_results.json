@@ -1,0 +1,618 @@
+[
+  {
+    "alpha_id": "A029",
+    "name": "中期动量短回撤低冲击",
+    "formula": "rank(rank(ret_20_skip5)*(1-rank(ret_5))*rank(liq_inv)*rank(low_vol)*(1-rank(turn)))",
+    "field": "score_mid_mom_short_pullback_liq",
+    "horizon_days": 5,
+    "cost_bps": 5.0,
+    "neutral": "none",
+    "splits": {
+      "train": {
+        "rows": 3057834,
+        "dates": 912,
+        "stocks": 5042,
+        "rankic_mean": 0.06859857200036283,
+        "rankic_ir": 8.331410736859054,
+        "rankic_positive_frac": 0.7006578947368421,
+        "portfolio": {
+          "days": 912,
+          "gross_mean_daily": 0.007492194070684427,
+          "net_mean_daily": 0.007196769552095902,
+          "ann_return_net": 0.36271718542563347,
+          "sharpe_net": 1.8196970417729752,
+          "max_drawdown": -0.44844871704057576,
+          "turnover_mean": 0.29542451858852387,
+          "n_long_mean": 330.0054824561403,
+          "n_short_mean": 325.87609649122805,
+          "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+          "annualization_periods": 50.4
+        },
+        "long_only": {
+          "days": 912,
+          "gross_mean_period": 0.0012862429674729164,
+          "net_mean_period": 0.0011373674918831599,
+          "ann_return_net": 0.057323321590911254,
+          "sharpe_net": 0.2864189383573723,
+          "max_drawdown": -0.6973785056954372,
+          "turnover_mean": 0.29775095117951317,
+          "n_long_mean": 330.0054824561403,
+          "portfolio_type": "long_only_top_decile",
+          "annualization_periods": 50.4
+        },
+        "yearly": {
+          "2019": {
+            "rankic_mean": 0.06887481997419735,
+            "rankic_days": 184
+          },
+          "2020": {
+            "rankic_mean": 0.06701693432036702,
+            "rankic_days": 243
+          },
+          "2021": {
+            "rankic_mean": 0.06581509392924124,
+            "rankic_days": 243
+          },
+          "2022": {
+            "rankic_mean": 0.07277168563811479,
+            "rankic_days": 242
+          }
+        },
+        "size_corr": 0.4001798719739069,
+        "amount_corr": -0.00976562042066643
+      },
+      "validation": {
+        "rows": 2141512,
+        "dates": 484,
+        "stocks": 5428,
+        "rankic_mean": 0.06531309632405019,
+        "rankic_ir": 5.824176888135551,
+        "rankic_positive_frac": 0.6487603305785123,
+        "portfolio": {
+          "days": 484,
+          "gross_mean_daily": 0.004289961716389641,
+          "net_mean_daily": 0.0040037916594345135,
+          "ann_return_net": 0.2017910996354995,
+          "sharpe_net": 0.6713796367428188,
+          "max_drawdown": -0.8152259871984351,
+          "turnover_mean": 0.28617005695512726,
+          "n_long_mean": 438.00619834710744,
+          "n_short_mean": 426.70661157024796,
+          "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+          "annualization_periods": 50.4
+        },
+        "long_only": {
+          "days": 484,
+          "gross_mean_period": 0.0011749621303013644,
+          "net_mean_period": 0.001024333739073106,
+          "ann_return_net": 0.05162642044928454,
+          "sharpe_net": 0.20322420049313708,
+          "max_drawdown": -0.7341332046598545,
+          "turnover_mean": 0.30125678245651477,
+          "n_long_mean": 438.00619834710744,
+          "portfolio_type": "long_only_top_decile",
+          "annualization_periods": 50.4
+        },
+        "yearly": {
+          "2023": {
+            "rankic_mean": 0.04963350214120886,
+            "rankic_days": 242
+          },
+          "2024": {
+            "rankic_mean": 0.08099269050689152,
+            "rankic_days": 242
+          }
+        },
+        "size_corr": 0.44057002558557995,
+        "amount_corr": 0.05809940351406514
+      },
+      "test": {
+        "rows": 1714832,
+        "dates": 337,
+        "stocks": 5456,
+        "rankic_mean": 0.04537045658113058,
+        "rankic_ir": 4.942920148398744,
+        "rankic_positive_frac": 0.6737160120845922,
+        "portfolio": {
+          "days": 331,
+          "gross_mean_daily": 0.001258545868529622,
+          "net_mean_daily": 0.0009761389200243655,
+          "ann_return_net": 0.04919740156922802,
+          "sharpe_net": 0.24591308963702638,
+          "max_drawdown": -0.46046019574259967,
+          "turnover_mean": 0.28240694850525655,
+          "n_long_mean": 508.1238670694864,
+          "n_short_mean": 498.32930513595164,
+          "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+          "annualization_periods": 50.4
+        },
+        "long_only": {
+          "days": 331,
+          "gross_mean_period": 0.0037254714219302665,
+          "net_mean_period": 0.0035823665712598988,
+          "ann_return_net": 0.18055127519149888,
+          "sharpe_net": 1.2443855125597914,
+          "max_drawdown": -0.33297442396260357,
+          "turnover_mean": 0.28620970134073664,
+          "n_long_mean": 508.1238670694864,
+          "portfolio_type": "long_only_top_decile",
+          "annualization_periods": 50.4
+        },
+        "yearly": {
+          "2025": {
+            "rankic_mean": 0.05140474559585928,
+            "rankic_days": 243
+          },
+          "2026": {
+            "rankic_mean": 0.02870759032455019,
+            "rankic_days": 88
+          }
+        },
+        "size_corr": 0.43036738046027573,
+        "amount_corr": 0.018080996426798404
+      }
+    }
+  },
+  {
+    "alpha_id": "A029",
+    "name": "中期动量短回撤低冲击",
+    "formula": "rank(rank(ret_20_skip5)*(1-rank(ret_5))*rank(liq_inv)*rank(low_vol)*(1-rank(turn)))",
+    "field": "score_mid_mom_short_pullback_liq",
+    "horizon_days": 5,
+    "cost_bps": 10.0,
+    "neutral": "none",
+    "splits": {
+      "train": {
+        "rows": 3057834,
+        "dates": 912,
+        "stocks": 5042,
+        "rankic_mean": 0.06859857200036283,
+        "rankic_ir": 8.331410736859054,
+        "rankic_positive_frac": 0.7006578947368421,
+        "portfolio": {
+          "days": 912,
+          "gross_mean_daily": 0.007492194070684427,
+          "net_mean_daily": 0.00690134503350738,
+          "ann_return_net": 0.3478277896887719,
+          "sharpe_net": 1.7448783198498112,
+          "max_drawdown": -0.45786388976628867,
+          "turnover_mean": 0.29542451858852387,
+          "n_long_mean": 330.0054824561403,
+          "n_short_mean": 325.87609649122805,
+          "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+          "annualization_periods": 50.4
+        },
+        "long_only": {
+          "days": 912,
+          "gross_mean_period": 0.0012862429674729164,
+          "net_mean_period": 0.000988492016293403,
+          "ann_return_net": 0.04981999762118751,
+          "sharpe_net": 0.24895949580063503,
+          "max_drawdown": -0.7005857386106948,
+          "turnover_mean": 0.29775095117951317,
+          "n_long_mean": 330.0054824561403,
+          "portfolio_type": "long_only_top_decile",
+          "annualization_periods": 50.4
+        },
+        "yearly": {
+          "2019": {
+            "rankic_mean": 0.06887481997419735,
+            "rankic_days": 184
+          },
+          "2020": {
+            "rankic_mean": 0.06701693432036702,
+            "rankic_days": 243
+          },
+          "2021": {
+            "rankic_mean": 0.06581509392924124,
+            "rankic_days": 243
+          },
+          "2022": {
+            "rankic_mean": 0.07277168563811479,
+            "rankic_days": 242
+          }
+        },
+        "size_corr": 0.4001798719739069,
+        "amount_corr": -0.00976562042066643
+      },
+      "validation": {
+        "rows": 2141512,
+        "dates": 484,
+        "stocks": 5428,
+        "rankic_mean": 0.06531309632405019,
+        "rankic_ir": 5.824176888135551,
+        "rankic_positive_frac": 0.6487603305785123,
+        "portfolio": {
+          "days": 484,
+          "gross_mean_daily": 0.004289961716389641,
+          "net_mean_daily": 0.003717621602479387,
+          "ann_return_net": 0.1873681287649611,
+          "sharpe_net": 0.6233805715295404,
+          "max_drawdown": -0.8179096589569861,
+          "turnover_mean": 0.28617005695512726,
+          "n_long_mean": 438.00619834710744,
+          "n_short_mean": 426.70661157024796,
+          "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+          "annualization_periods": 50.4
+        },
+        "long_only": {
+          "days": 484,
+          "gross_mean_period": 0.0011749621303013644,
+          "net_mean_period": 0.0008737053478448499,
+          "ann_return_net": 0.04403474953138044,
+          "sharpe_net": 0.1733465892164167,
+          "max_drawdown": -0.7484845189133935,
+          "turnover_mean": 0.30125678245651477,
+          "n_long_mean": 438.00619834710744,
+          "portfolio_type": "long_only_top_decile",
+          "annualization_periods": 50.4
+        },
+        "yearly": {
+          "2023": {
+            "rankic_mean": 0.04963350214120886,
+            "rankic_days": 242
+          },
+          "2024": {
+            "rankic_mean": 0.08099269050689152,
+            "rankic_days": 242
+          }
+        },
+        "size_corr": 0.44057002558557995,
+        "amount_corr": 0.05809940351406514
+      },
+      "test": {
+        "rows": 1714832,
+        "dates": 337,
+        "stocks": 5456,
+        "rankic_mean": 0.04537045658113058,
+        "rankic_ir": 4.942920148398744,
+        "rankic_positive_frac": 0.6737160120845922,
+        "portfolio": {
+          "days": 331,
+          "gross_mean_daily": 0.001258545868529622,
+          "net_mean_daily": 0.000693731971519109,
+          "ann_return_net": 0.0349640913645631,
+          "sharpe_net": 0.17476693527699616,
+          "max_drawdown": -0.46529128474559023,
+          "turnover_mean": 0.28240694850525655,
+          "n_long_mean": 508.1238670694864,
+          "n_short_mean": 498.32930513595164,
+          "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+          "annualization_periods": 50.4
+        },
+        "long_only": {
+          "days": 331,
+          "gross_mean_period": 0.0037254714219302665,
+          "net_mean_period": 0.0034392617205895298,
+          "ann_return_net": 0.1733387907177123,
+          "sharpe_net": 1.1945865503271793,
+          "max_drawdown": -0.334516903260215,
+          "turnover_mean": 0.28620970134073664,
+          "n_long_mean": 508.1238670694864,
+          "portfolio_type": "long_only_top_decile",
+          "annualization_periods": 50.4
+        },
+        "yearly": {
+          "2025": {
+            "rankic_mean": 0.05140474559585928,
+            "rankic_days": 243
+          },
+          "2026": {
+            "rankic_mean": 0.02870759032455019,
+            "rankic_days": 88
+          }
+        },
+        "size_corr": 0.43036738046027573,
+        "amount_corr": 0.018080996426798404
+      }
+    }
+  },
+  {
+    "alpha_id": "A029",
+    "name": "中期动量短回撤低冲击",
+    "formula": "rank(rank(ret_20_skip5)*(1-rank(ret_5))*rank(liq_inv)*rank(low_vol)*(1-rank(turn)))",
+    "field": "score_mid_mom_short_pullback_liq",
+    "horizon_days": 5,
+    "cost_bps": 20.0,
+    "neutral": "none",
+    "splits": {
+      "train": {
+        "rows": 3057834,
+        "dates": 912,
+        "stocks": 5042,
+        "rankic_mean": 0.06859857200036283,
+        "rankic_ir": 8.331410736859054,
+        "rankic_positive_frac": 0.7006578947368421,
+        "portfolio": {
+          "days": 912,
+          "gross_mean_daily": 0.007492194070684427,
+          "net_mean_daily": 0.006310495996330332,
+          "ann_return_net": 0.31804899821504873,
+          "sharpe_net": 1.5952613048944992,
+          "max_drawdown": -0.47622361761128695,
+          "turnover_mean": 0.29542451858852387,
+          "n_long_mean": 330.0054824561403,
+          "n_short_mean": 325.87609649122805,
+          "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+          "annualization_periods": 50.4
+        },
+        "long_only": {
+          "days": 912,
+          "gross_mean_period": 0.0012862429674729164,
+          "net_mean_period": 0.0006907410651138903,
+          "ann_return_net": 0.034813349681740074,
+          "sharpe_net": 0.17401167579376045,
+          "max_drawdown": -0.7069000325923283,
+          "turnover_mean": 0.29775095117951317,
+          "n_long_mean": 330.0054824561403,
+          "portfolio_type": "long_only_top_decile",
+          "annualization_periods": 50.4
+        },
+        "yearly": {
+          "2019": {
+            "rankic_mean": 0.06887481997419735,
+            "rankic_days": 184
+          },
+          "2020": {
+            "rankic_mean": 0.06701693432036702,
+            "rankic_days": 243
+          },
+          "2021": {
+            "rankic_mean": 0.06581509392924124,
+            "rankic_days": 243
+          },
+          "2022": {
+            "rankic_mean": 0.07277168563811479,
+            "rankic_days": 242
+          }
+        },
+        "size_corr": 0.4001798719739069,
+        "amount_corr": -0.00976562042066643
+      },
+      "validation": {
+        "rows": 2141512,
+        "dates": 484,
+        "stocks": 5428,
+        "rankic_mean": 0.06531309632405019,
+        "rankic_ir": 5.824176888135551,
+        "rankic_positive_frac": 0.6487603305785123,
+        "portfolio": {
+          "days": 484,
+          "gross_mean_daily": 0.004289961716389641,
+          "net_mean_daily": 0.003145281488569131,
+          "ann_return_net": 0.1585221870238842,
+          "sharpe_net": 0.5273859189926132,
+          "max_drawdown": -0.8231632096417132,
+          "turnover_mean": 0.28617005695512726,
+          "n_long_mean": 438.00619834710744,
+          "n_short_mean": 426.70661157024796,
+          "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+          "annualization_periods": 50.4
+        },
+        "long_only": {
+          "days": 484,
+          "gross_mean_period": 0.0011749621303013644,
+          "net_mean_period": 0.0005724485653883344,
+          "ann_return_net": 0.02885140769557205,
+          "sharpe_net": 0.11358419453454915,
+          "max_drawdown": -0.7749108032177334,
+          "turnover_mean": 0.30125678245651477,
+          "n_long_mean": 438.00619834710744,
+          "portfolio_type": "long_only_top_decile",
+          "annualization_periods": 50.4
+        },
+        "yearly": {
+          "2023": {
+            "rankic_mean": 0.04963350214120886,
+            "rankic_days": 242
+          },
+          "2024": {
+            "rankic_mean": 0.08099269050689152,
+            "rankic_days": 242
+          }
+        },
+        "size_corr": 0.44057002558557995,
+        "amount_corr": 0.05809940351406514
+      },
+      "test": {
+        "rows": 1714832,
+        "dates": 337,
+        "stocks": 5456,
+        "rankic_mean": 0.04537045658113058,
+        "rankic_ir": 4.942920148398744,
+        "rankic_positive_frac": 0.6737160120845922,
+        "portfolio": {
+          "days": 331,
+          "gross_mean_daily": 0.001258545868529622,
+          "net_mean_daily": 0.00012891807450859602,
+          "ann_return_net": 0.006497470955233239,
+          "sharpe_net": 0.03247683776285964,
+          "max_drawdown": -0.47482813456442696,
+          "turnover_mean": 0.28240694850525655,
+          "n_long_mean": 508.1238670694864,
+          "n_short_mean": 498.32930513595164,
+          "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+          "annualization_periods": 50.4
+        },
+        "long_only": {
+          "days": 331,
+          "gross_mean_period": 0.0037254714219302665,
+          "net_mean_period": 0.0031530520192487935,
+          "ann_return_net": 0.15891382177013919,
+          "sharpe_net": 1.0950003429376785,
+          "max_drawdown": -0.3375919498307899,
+          "turnover_mean": 0.28620970134073664,
+          "n_long_mean": 508.1238670694864,
+          "portfolio_type": "long_only_top_decile",
+          "annualization_periods": 50.4
+        },
+        "yearly": {
+          "2025": {
+            "rankic_mean": 0.05140474559585928,
+            "rankic_days": 243
+          },
+          "2026": {
+            "rankic_mean": 0.02870759032455019,
+            "rankic_days": 88
+          }
+        },
+        "size_corr": 0.43036738046027573,
+        "amount_corr": 0.018080996426798404
+      }
+    }
+  },
+  {
+    "alpha_id": "A029",
+    "name": "中期动量短回撤低冲击",
+    "formula": "rank(rank(ret_20_skip5)*(1-rank(ret_5))*rank(liq_inv)*rank(low_vol)*(1-rank(turn)))",
+    "field": "score_mid_mom_short_pullback_liq",
+    "horizon_days": 5,
+    "cost_bps": 30.0,
+    "neutral": "none",
+    "splits": {
+      "train": {
+        "rows": 3057834,
+        "dates": 912,
+        "stocks": 5042,
+        "rankic_mean": 0.06859857200036283,
+        "rankic_ir": 8.331410736859054,
+        "rankic_positive_frac": 0.7006578947368421,
+        "portfolio": {
+          "days": 912,
+          "gross_mean_daily": 0.007492194070684427,
+          "net_mean_daily": 0.005719646959153283,
+          "ann_return_net": 0.2882702067413255,
+          "sharpe_net": 1.4456748568075337,
+          "max_drawdown": -0.49397293180728497,
+          "turnover_mean": 0.29542451858852387,
+          "n_long_mean": 330.0054824561403,
+          "n_short_mean": 325.87609649122805,
+          "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+          "annualization_periods": 50.4
+        },
+        "long_only": {
+          "days": 912,
+          "gross_mean_period": 0.0012862429674729164,
+          "net_mean_period": 0.0003929901139343769,
+          "ann_return_net": 0.019806701742292595,
+          "sharpe_net": 0.09902620542683699,
+          "max_drawdown": -0.7130830464072423,
+          "turnover_mean": 0.29775095117951317,
+          "n_long_mean": 330.0054824561403,
+          "portfolio_type": "long_only_top_decile",
+          "annualization_periods": 50.4
+        },
+        "yearly": {
+          "2019": {
+            "rankic_mean": 0.06887481997419735,
+            "rankic_days": 184
+          },
+          "2020": {
+            "rankic_mean": 0.06701693432036702,
+            "rankic_days": 243
+          },
+          "2021": {
+            "rankic_mean": 0.06581509392924124,
+            "rankic_days": 243
+          },
+          "2022": {
+            "rankic_mean": 0.07277168563811479,
+            "rankic_days": 242
+          }
+        },
+        "size_corr": 0.4001798719739069,
+        "amount_corr": -0.00976562042066643
+      },
+      "validation": {
+        "rows": 2141512,
+        "dates": 484,
+        "stocks": 5428,
+        "rankic_mean": 0.06531309632405019,
+        "rankic_ir": 5.824176888135551,
+        "rankic_positive_frac": 0.6487603305785123,
+        "portfolio": {
+          "days": 484,
+          "gross_mean_daily": 0.004289961716389641,
+          "net_mean_daily": 0.0025729413746588773,
+          "ann_return_net": 0.1296762452828074,
+          "sharpe_net": 0.43139725899275383,
+          "max_drawdown": -0.8282685260198119,
+          "turnover_mean": 0.28617005695512726,
+          "n_long_mean": 438.00619834710744,
+          "n_short_mean": 426.70661157024796,
+          "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+          "annualization_periods": 50.4
+        },
+        "long_only": {
+          "days": 484,
+          "gross_mean_period": 0.0011749621303013644,
+          "net_mean_period": 0.0002711917829318201,
+          "ann_return_net": 0.013668065859763734,
+          "sharpe_net": 0.0538129687564751,
+          "max_drawdown": -0.7985675242042738,
+          "turnover_mean": 0.30125678245651477,
+          "n_long_mean": 438.00619834710744,
+          "portfolio_type": "long_only_top_decile",
+          "annualization_periods": 50.4
+        },
+        "yearly": {
+          "2023": {
+            "rankic_mean": 0.04963350214120886,
+            "rankic_days": 242
+          },
+          "2024": {
+            "rankic_mean": 0.08099269050689152,
+            "rankic_days": 242
+          }
+        },
+        "size_corr": 0.44057002558557995,
+        "amount_corr": 0.05809940351406514
+      },
+      "test": {
+        "rows": 1714832,
+        "dates": 337,
+        "stocks": 5456,
+        "rankic_mean": 0.04537045658113058,
+        "rankic_ir": 4.942920148398744,
+        "rankic_positive_frac": 0.6737160120845922,
+        "portfolio": {
+          "days": 331,
+          "gross_mean_daily": 0.001258545868529622,
+          "net_mean_daily": -0.00043589582250191727,
+          "ann_return_net": -0.02196914945409663,
+          "sharpe_net": -0.10980733938422228,
+          "max_drawdown": -0.48420020892656,
+          "turnover_mean": 0.28240694850525655,
+          "n_long_mean": 508.1238670694864,
+          "n_short_mean": 498.32930513595164,
+          "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+          "annualization_periods": 50.4
+        },
+        "long_only": {
+          "days": 331,
+          "gross_mean_period": 0.0037254714219302665,
+          "net_mean_period": 0.0028668423179080567,
+          "ann_return_net": 0.14448885282256604,
+          "sharpe_net": 0.9954329875414453,
+          "max_drawdown": -0.3406538238407052,
+          "turnover_mean": 0.28620970134073664,
+          "n_long_mean": 508.1238670694864,
+          "portfolio_type": "long_only_top_decile",
+          "annualization_periods": 50.4
+        },
+        "yearly": {
+          "2025": {
+            "rankic_mean": 0.05140474559585928,
+            "rankic_days": 243
+          },
+          "2026": {
+            "rankic_mean": 0.02870759032455019,
+            "rankic_days": 88
+          }
+        },
+        "size_corr": 0.43036738046027573,
+        "amount_corr": 0.018080996426798404
+      }
+    }
+  }
+]

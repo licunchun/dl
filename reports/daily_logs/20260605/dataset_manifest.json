@@ -1,0 +1,74 @@
+{
+  "agent": "data_agent",
+  "data_source_detail": {
+    "basic": {
+      "exists": true,
+      "path": "/home/lcc17/pan_sync_20260528/A股数据/basic.csv"
+    },
+    "daily": {
+      "csv_file_count": 2526,
+      "exists": true,
+      "path": "/home/lcc17/pan_sync_20260528/A股数据/daily",
+      "selected_csv_file_count": 275,
+      "selected_sample": [
+        "/home/lcc17/pan_sync_20260528/A股数据/daily/20250411.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/daily/20250414.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/daily/20250415.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/daily/20250416.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/daily/20250417.csv"
+      ]
+    },
+    "data_root": "/home/lcc17/pan_sync_20260528",
+    "end": "20260605",
+    "fallback_reason": null,
+    "metric": {
+      "csv_file_count": 2526,
+      "exists": true,
+      "path": "/home/lcc17/pan_sync_20260528/A股数据/metric",
+      "selected_csv_file_count": 275,
+      "selected_sample": [
+        "/home/lcc17/pan_sync_20260528/A股数据/metric/20250411.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/metric/20250414.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/metric/20250415.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/metric/20250416.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/metric/20250417.csv"
+      ]
+    },
+    "moneyflow": {
+      "csv_file_count": 2526,
+      "exists": true,
+      "path": "/home/lcc17/pan_sync_20260528/A股数据/moneyflow",
+      "selected_csv_file_count": 275,
+      "selected_sample": [
+        "/home/lcc17/pan_sync_20260528/A股数据/moneyflow/20250411.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/moneyflow/20250414.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/moneyflow/20250415.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/moneyflow/20250416.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/moneyflow/20250417.csv"
+      ]
+    },
+    "start": "20250411",
+    "stock_st": {
+      "csv_file_count": 2349,
+      "exists": true,
+      "path": "/home/lcc17/pan_sync_20260528/A股数据/stock_st",
+      "selected_csv_file_count": 273,
+      "selected_sample": [
+        "/home/lcc17/pan_sync_20260528/A股数据/stock_st/20250411.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/stock_st/20250414.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/stock_st/20250415.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/stock_st/20250416.csv",
+        "/home/lcc17/pan_sync_20260528/A股数据/stock_st/20250417.csv"
+      ]
+    }
+  },
+  "dataset_path": "reports/daily_logs/20260605/daily_dataset.parquet",
+  "dataset_sha256": "f2c5fb3cf62cf0a99f012aaa3ed0b448ab71a6390028696d54da0f7bd6a3dbcd",
+  "dataset_size_bytes": 295388905,
+  "dates": 275,
+  "health_status": "ok",
+  "rows": 1495393,
+  "run_date": "20260605",
+  "source_mode": "local_csv",
+  "stocks": 5551
+}

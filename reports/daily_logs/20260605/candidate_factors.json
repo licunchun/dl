@@ -1,0 +1,196 @@
+{
+  "agent": "factor_design",
+  "factors": [
+    {
+      "created_at_run": "20260605",
+      "expression": "shock_reversal_5",
+      "factor_id": "F_VOL_REV_5",
+      "formula": "(1 - rank(ret_5)) * rank(amount_ratio_20)",
+      "formula_key": "(1-rank(ret_5))*rank(amount_ratio_20)",
+      "horizon_days": 5,
+      "name": "放量5日反转",
+      "provenance": {
+        "created_at_run": "20260605",
+        "evidence": [
+          "No live market events collected; continue with local data and historical factor memory."
+        ],
+        "hypothesis": "A股短期过度放量下跌后存在流动性恢复反弹，但需要控制ST、涨跌停和换手成本。",
+        "research_source_quality": {
+          "context_items": 0,
+          "coverage_ratio": 0.0,
+          "covered_kinds": [],
+          "error_sources": 0,
+          "fallback_used": true,
+          "missing_kinds": [
+            "community",
+            "factor_library",
+            "paper"
+          ],
+          "mode": "offline",
+          "ok_sources": 0,
+          "skipped_sources": 3,
+          "total_sources": 3
+        },
+        "source_idea_id": "R001",
+        "source_theme": "volume_shock_reversal"
+      },
+      "source_idea_id": "R001",
+      "status": "candidate"
+    },
+    {
+      "created_at_run": "20260605",
+      "expression": "vwap_shock_reversal",
+      "factor_id": "F_VWAP_REV_5",
+      "formula": "(1 - rank(vwap_dev)) * rank(amount_ratio_20)",
+      "formula_key": "(1-rank(vwap_dev))*rank(amount_ratio_20)",
+      "horizon_days": 5,
+      "name": "VWAP放量反转",
+      "provenance": {
+        "created_at_run": "20260605",
+        "evidence": [
+          "No live market events collected; continue with local data and historical factor memory."
+        ],
+        "hypothesis": "A股短期过度放量下跌后存在流动性恢复反弹，但需要控制ST、涨跌停和换手成本。",
+        "research_source_quality": {
+          "context_items": 0,
+          "coverage_ratio": 0.0,
+          "covered_kinds": [],
+          "error_sources": 0,
+          "fallback_used": true,
+          "missing_kinds": [
+            "community",
+            "factor_library",
+            "paper"
+          ],
+          "mode": "offline",
+          "ok_sources": 0,
+          "skipped_sources": 3,
+          "total_sources": 3
+        },
+        "source_idea_id": "R001",
+        "source_theme": "volume_shock_reversal"
+      },
+      "source_idea_id": "R001",
+      "status": "candidate"
+    },
+    {
+      "created_at_run": "20260605",
+      "expression": "moneyflow_exhaustion_reversal",
+      "factor_id": "F_MF_EXHAUST_5",
+      "formula": "(1 - rank(ret_5)) * rank(mf_buy_pressure)",
+      "formula_key": "(1-rank(ret_5))*rank(mf_buy_pressure)",
+      "horizon_days": 5,
+      "name": "资金流耗尽反转",
+      "provenance": {
+        "created_at_run": "20260605",
+        "evidence": [
+          "No live market events collected; continue with local data and historical factor memory."
+        ],
+        "hypothesis": "大单/超大单买入压力与价格延伸叠加后可能出现短期耗尽或确认效应。",
+        "research_source_quality": {
+          "context_items": 0,
+          "coverage_ratio": 0.0,
+          "covered_kinds": [],
+          "error_sources": 0,
+          "fallback_used": true,
+          "missing_kinds": [
+            "community",
+            "factor_library",
+            "paper"
+          ],
+          "mode": "offline",
+          "ok_sources": 0,
+          "skipped_sources": 3,
+          "total_sources": 3
+        },
+        "source_idea_id": "R002",
+        "source_theme": "moneyflow_exhaustion"
+      },
+      "source_idea_id": "R002",
+      "status": "candidate"
+    },
+    {
+      "created_at_run": "20260605",
+      "expression": "moneyflow_confirmed_momentum",
+      "factor_id": "F_MF_CONFIRM_5",
+      "formula": "rank(ret_5) * rank(mf_buy_pressure)",
+      "formula_key": "rank(ret_5)*rank(mf_buy_pressure)",
+      "horizon_days": 5,
+      "name": "资金流顺势确认",
+      "provenance": {
+        "created_at_run": "20260605",
+        "evidence": [
+          "No live market events collected; continue with local data and historical factor memory."
+        ],
+        "hypothesis": "大单/超大单买入压力与价格延伸叠加后可能出现短期耗尽或确认效应。",
+        "research_source_quality": {
+          "context_items": 0,
+          "coverage_ratio": 0.0,
+          "covered_kinds": [],
+          "error_sources": 0,
+          "fallback_used": true,
+          "missing_kinds": [
+            "community",
+            "factor_library",
+            "paper"
+          ],
+          "mode": "offline",
+          "ok_sources": 0,
+          "skipped_sources": 3,
+          "total_sources": 3
+        },
+        "source_idea_id": "R002",
+        "source_theme": "moneyflow_exhaustion"
+      },
+      "source_idea_id": "R002",
+      "status": "candidate"
+    },
+    {
+      "created_at_run": "20260605",
+      "expression": "value_liquidity_defensive",
+      "factor_id": "F_VALUE_LIQ_DEF_5",
+      "formula": "(rank(pb_inv) + rank(liq_inv) + rank(low_vol)) / 3",
+      "formula_key": "(rank(pb_inv)+rank(liq_inv)+rank(low_vol))/3",
+      "horizon_days": 5,
+      "name": "价值流动性防御",
+      "provenance": {
+        "created_at_run": "20260605",
+        "evidence": [
+          "No live market events collected; continue with local data and historical factor memory."
+        ],
+        "hypothesis": "低波动、高流动性、低PB组合可能在A股中低频长仓中提供更稳定风险调整收益。",
+        "research_source_quality": {
+          "context_items": 0,
+          "coverage_ratio": 0.0,
+          "covered_kinds": [],
+          "error_sources": 0,
+          "fallback_used": true,
+          "missing_kinds": [
+            "community",
+            "factor_library",
+            "paper"
+          ],
+          "mode": "offline",
+          "ok_sources": 0,
+          "skipped_sources": 3,
+          "total_sources": 3
+        },
+        "source_idea_id": "R003",
+        "source_theme": "defensive_liquidity_value"
+      },
+      "source_idea_id": "R003",
+      "status": "candidate"
+    }
+  ],
+  "failed_memory_audit": {
+    "failed_key_count": 0,
+    "failure_memory_parse_errors": 0,
+    "failure_memory_quarantine_path": "knowledge_base/jsonl_quarantine/failure_memory.jsonl.corrupt.jsonl",
+    "source_counts": {
+      "factor_database": 0,
+      "failure_memory": 0
+    }
+  },
+  "run_date": "20260605",
+  "skipped_factors": []
+}

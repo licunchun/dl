@@ -1,0 +1,19 @@
+[
+  {
+    "tag": "sklearn_sgd_2025_w5_e2_hl60",
+    "model": "sklearn_sgd",
+    "window": 5,
+    "samples": 65536,
+    "preds": "reports/may_2026_validation/sklearn_sgd_2025_w5_e2_hl60_may_preds.parquet",
+    "ic": 0.035279184991489375,
+    "rank_ic": 0.04930069376634931,
+    "icir": 7.495489762844816,
+    "diracc": 0.48983273186919996,
+    "n_days": 16,
+    "top10_spread_bp": 29.159262261600816,
+    "bt_annualised": -0.4744813676952149,
+    "bt_sharpe": -2.0922480679908833,
+    "bt_max_drawdown": -0.07686187241752074,
+    "bt_n_days": 15
+  }
+]

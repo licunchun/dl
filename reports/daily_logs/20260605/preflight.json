@@ -1,0 +1,50 @@
+{
+  "agent": "preflight",
+  "checks": {
+    "min_free_disk_ok": true,
+    "required_dirs_writable": true
+  },
+  "disk": {
+    "factor_library": {
+      "free_mb": 49136589.0,
+      "min_required_free_mb": 512,
+      "ok": true,
+      "path": "factor_library",
+      "total_mb": 62010341.0
+    },
+    "knowledge_root": {
+      "free_mb": 49136589.0,
+      "min_required_free_mb": 512,
+      "ok": true,
+      "path": "knowledge_base",
+      "total_mb": 62010341.0
+    },
+    "output_root": {
+      "free_mb": 49136589.0,
+      "min_required_free_mb": 512,
+      "ok": true,
+      "path": "reports",
+      "total_mb": 62010341.0
+    }
+  },
+  "run_date": "20260605",
+  "status": "ok",
+  "writable": {
+    "factor_library": {
+      "path": "factor_library",
+      "writable": true
+    },
+    "knowledge_root": {
+      "path": "knowledge_base",
+      "writable": true
+    },
+    "output_root": {
+      "path": "reports",
+      "writable": true
+    },
+    "run_dir": {
+      "path": "reports/daily_logs/20260605",
+      "writable": true
+    }
+  }
+}

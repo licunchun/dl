@@ -62,6 +62,10 @@ Keep runtime marker contracts stable and non-destructive when overlays are appli
 - Prefer deletion, existing utilities, and existing patterns before new abstractions; add dependencies only when explicitly requested.
 - Keep diffs small, reviewable, and reversible.
 - Verify with lint, typecheck, tests, and static analysis after changes; final reports include changed files, simplifications, and remaining risks.
+- Persist durable project knowledge before finishing when new information is likely to help future work:
+  - Write long-term experimental results, validated conclusions, model comparisons, and durable project outcomes to `RESULTS.md`.
+  - Write debugging experience, root causes, failed attempts, fixes, environment pitfalls, and reproduction notes to `DEBUG.md`.
+  - Keep entries evidence-backed, dated when useful, and concise enough for future agents to scan quickly.
 
 <lore_commit_protocol>
 ## Lore Commit Protocol
@@ -372,3 +376,18 @@ Do not manually duplicate hook-owned activation state unless recovering from mis
 ## Setup
 
 Execute `omx setup` to install all components. Execute `omx doctor` to verify installation.
+<!-- ARIS-CODEX:BEGIN -->
+## ARIS Codex Skill Scope
+ARIS Codex packages installed in this project: skills-codex
+Managed entries: 78
+Manifest: `.aris/installed-skills-codex.txt`
+ARIS repo root: `/home/lcc17/aris_repo`
+Project skill path: `.agents/skills/<skill-name>`
+For ARIS Codex workflows, prefer the project-local skills under `.agents/skills/`.
+When a skill needs ARIS helper scripts, resolve the repo root from the manifest or set it explicitly:
+`ARIS_REPO=$(awk -F'\t' '$1=="repo_root"{print $2; exit}' "/home/lcc17/dl/.aris/installed-skills-codex.txt")`
+Do not edit or delete symlinked skills in place; update upstream or rerun:
+`bash /home/lcc17/aris_repo/tools/install_aris_codex.sh "/home/lcc17/dl" --reconcile`
+For copied Codex installs, use:
+`bash /home/lcc17/aris_repo/tools/smart_update_codex.sh --project "/home/lcc17/dl"`
+<!-- ARIS-CODEX:END -->

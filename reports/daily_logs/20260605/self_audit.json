@@ -1,0 +1,137 @@
+{
+  "agent": "self_audit",
+  "agent_errors": [],
+  "checks": {
+    "backtests_available": true,
+    "data_freshness_ok": true,
+    "data_health_ok": true,
+    "events_available": true,
+    "factors_available": true,
+    "ideas_available": true,
+    "knowledge_base_updated": true,
+    "market_source_quality_recorded": true,
+    "no_agent_errors": true,
+    "pipeline_completed": true,
+    "preflight_ok": true,
+    "required_files_present": true,
+    "research_source_quality_recorded": true
+  },
+  "counts": {
+    "backtest_results": 5,
+    "candidate_factors": 5,
+    "events": 1,
+    "ideas": 3,
+    "knowledge_factors": 5
+  },
+  "data_freshness": {
+    "max_allowed_staleness_days": 7,
+    "note": "",
+    "staleness_days": 4,
+    "status": "ok"
+  },
+  "file_checks": {
+    "backtest_results.json": true,
+    "candidate_factors.json": true,
+    "critique.json": true,
+    "cron_example.txt": true,
+    "daily_dataset.parquet": true,
+    "daily_events.json": true,
+    "data_health.json": true,
+    "dataset_manifest.json": true,
+    "failure_analysis.md": true,
+    "next_generation_factors.json": true,
+    "pipeline_state.json": true,
+    "preflight.json": true,
+    "research_ideas.json": true,
+    "run_audit.json": true,
+    "schedule.json": true
+  },
+  "market_source_quality": {
+    "coverage_ratio": 0.0,
+    "covered_kinds": [],
+    "error_sources": 0,
+    "fallback_used": true,
+    "live_events": 0,
+    "missing_kinds": [
+      "announcement",
+      "industry",
+      "news",
+      "policy",
+      "research_context"
+    ],
+    "mode": "offline",
+    "ok_sources": 0,
+    "skipped_sources": 6,
+    "total_sources": 6
+  },
+  "preflight": {
+    "agent": "preflight",
+    "checks": {
+      "min_free_disk_ok": true,
+      "required_dirs_writable": true
+    },
+    "disk": {
+      "factor_library": {
+        "free_mb": 49136589.0,
+        "min_required_free_mb": 512,
+        "ok": true,
+        "path": "factor_library",
+        "total_mb": 62010341.0
+      },
+      "knowledge_root": {
+        "free_mb": 49136589.0,
+        "min_required_free_mb": 512,
+        "ok": true,
+        "path": "knowledge_base",
+        "total_mb": 62010341.0
+      },
+      "output_root": {
+        "free_mb": 49136589.0,
+        "min_required_free_mb": 512,
+        "ok": true,
+        "path": "reports",
+        "total_mb": 62010341.0
+      }
+    },
+    "run_date": "20260605",
+    "status": "ok",
+    "writable": {
+      "factor_library": {
+        "path": "factor_library",
+        "writable": true
+      },
+      "knowledge_root": {
+        "path": "knowledge_base",
+        "writable": true
+      },
+      "output_root": {
+        "path": "reports",
+        "writable": true
+      },
+      "run_dir": {
+        "path": "reports/daily_logs/20260605",
+        "writable": true
+      }
+    }
+  },
+  "research_source_quality": {
+    "context_items": 0,
+    "coverage_ratio": 0.0,
+    "covered_kinds": [],
+    "error_sources": 0,
+    "fallback_used": true,
+    "missing_kinds": [
+      "community",
+      "factor_library",
+      "paper"
+    ],
+    "mode": "offline",
+    "ok_sources": 0,
+    "skipped_sources": 3,
+    "total_sources": 3
+  },
+  "run_date": "20260605",
+  "score": 1.0,
+  "source_mode": "offline",
+  "status": "pass"
+}

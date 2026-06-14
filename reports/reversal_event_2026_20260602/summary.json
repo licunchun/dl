@@ -1,0 +1,52 @@
+{
+  "rows": 29962,
+  "train": 22943,
+  "val": 7019,
+  "features": [
+    "pct_chg",
+    "intraday",
+    "gap",
+    "amp_pct",
+    "cum2",
+    "cum3",
+    "cum5",
+    "cum8",
+    "cum10",
+    "cum20",
+    "down3_cnt",
+    "down5_cnt",
+    "down8_cnt",
+    "down10_cnt",
+    "up5_cnt",
+    "down_streak",
+    "vol_ratio5",
+    "vol_ratio10",
+    "vol_ratio20",
+    "amt_ratio5",
+    "amt_ratio10",
+    "net_mf_ratio",
+    "large_net_mf_ratio",
+    "turnover_rate",
+    "turnover_rate_f",
+    "log_amount",
+    "log_mv"
+  ],
+  "val_auc": 0.5852318920067245,
+  "topk": {
+    "mean_next_pct": {
+      "5": -0.9991833333333333,
+      "10": -0.8729166666666667,
+      "20": -0.7402738888888889
+    },
+    "hit2": {
+      "5": 0.16666666666666666,
+      "10": 0.17222222222222222,
+      "20": 0.18055555555555555
+    },
+    "hit0": {
+      "5": 0.3888888888888889,
+      "10": 0.3611111111111111,
+      "20": 0.35833333333333334
+    }
+  }
+}

@@ -1,0 +1,400 @@
+{
+  "factors": [
+    {
+      "cost_sensitivity": {
+        "10": {
+          "ann_return_net": 0.31005473115876064,
+          "cost_bps": 10.0,
+          "days": 262,
+          "max_drawdown": -0.4013747421865377,
+          "n_long_mean": 1051.706106870229,
+          "periods_per_year": 50.4,
+          "portfolio_type": "long_only_top_quantile",
+          "sharpe_net": 1.7000691047179237,
+          "turnover_mean": 0.5194198210348835
+        },
+        "20": {
+          "ann_return_net": 0.2838759721786025,
+          "cost_bps": 20.0,
+          "days": 262,
+          "max_drawdown": -0.40709218782554935,
+          "n_long_mean": 1051.706106870229,
+          "periods_per_year": 50.4,
+          "portfolio_type": "long_only_top_quantile",
+          "sharpe_net": 1.5561321554483414,
+          "turnover_mean": 0.5194198210348835
+        },
+        "5": {
+          "ann_return_net": 0.32314411064883963,
+          "cost_bps": 5.0,
+          "days": 262,
+          "max_drawdown": -0.3984965400732611,
+          "n_long_mean": 1051.706106870229,
+          "periods_per_year": 50.4,
+          "portfolio_type": "long_only_top_quantile",
+          "sharpe_net": 1.7720621214192065,
+          "turnover_mean": 0.5194198210348835
+        }
+      },
+      "dates": 262,
+      "decision": "kill",
+      "decision_note": "raw backtest candidate; requires critic approval before promotion",
+      "expression": "shock_reversal_5",
+      "factor_id": "F_VOL_REV_5",
+      "formula": "(1 - rank(ret_5)) * rank(amount_ratio_20)",
+      "formula_key": "(1-rank(ret_5))*rank(amount_ratio_20)",
+      "horizon_days": 5,
+      "issues": [
+        "large_drawdown"
+      ],
+      "long_short": {
+        "ann_return_gross": 0.09841772784333185,
+        "ann_return_net": 0.05179062572732768,
+        "cost_bps": 10.0,
+        "days": 262,
+        "max_drawdown": -0.22500201778579942,
+        "n_long_mean": 1051.706106870229,
+        "n_short_mean": 1051.7022900763359,
+        "periods_per_year": 50.4,
+        "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+        "sharpe_net": 0.6216398411301142,
+        "turnover_mean": 0.4625704575000415
+      },
+      "name": "放量5日反转",
+      "portfolio": {
+        "ann_return_net": 0.31005473115876064,
+        "cost_bps": 10.0,
+        "days": 262,
+        "max_drawdown": -0.4013747421865377,
+        "n_long_mean": 1051.706106870229,
+        "periods_per_year": 50.4,
+        "portfolio_type": "long_only_top_quantile",
+        "sharpe_net": 1.7000691047179237,
+        "turnover_mean": 0.5194198210348835
+      },
+      "rankic_ir": 7.8213570678984246,
+      "rankic_mean": 0.03684842629163992,
+      "rankic_positive_frac": 0.6946564885496184,
+      "rows": 1377164,
+      "run_date": "20260605",
+      "run_quality": "complete"
+    },
+    {
+      "cost_sensitivity": {
+        "10": {
+          "ann_return_net": 0.3282130614896288,
+          "cost_bps": 10.0,
+          "days": 262,
+          "max_drawdown": -0.3759502934573731,
+          "n_long_mean": 1051.7022900763359,
+          "periods_per_year": 50.4,
+          "portfolio_type": "long_only_top_quantile",
+          "sharpe_net": 1.734788389548999,
+          "turnover_mean": 0.692008205322653
+        },
+        "20": {
+          "ann_return_net": 0.29333584794136713,
+          "cost_bps": 20.0,
+          "days": 262,
+          "max_drawdown": -0.3837947171334146,
+          "n_long_mean": 1051.7022900763359,
+          "periods_per_year": 50.4,
+          "portfolio_type": "long_only_top_quantile",
+          "sharpe_net": 1.5500476446351454,
+          "turnover_mean": 0.692008205322653
+        },
+        "5": {
+          "ann_return_net": 0.34565166826375965,
+          "cost_bps": 5.0,
+          "days": 262,
+          "max_drawdown": -0.37199281597939415,
+          "n_long_mean": 1051.7022900763359,
+          "periods_per_year": 50.4,
+          "portfolio_type": "long_only_top_quantile",
+          "sharpe_net": 1.8271918840340755,
+          "turnover_mean": 0.692008205322653
+        }
+      },
+      "dates": 262,
+      "decision": "promote",
+      "decision_note": "raw backtest candidate; requires critic approval before promotion",
+      "expression": "vwap_shock_reversal",
+      "factor_id": "F_VWAP_REV_5",
+      "formula": "(1 - rank(vwap_dev)) * rank(amount_ratio_20)",
+      "formula_key": "(1-rank(vwap_dev))*rank(amount_ratio_20)",
+      "horizon_days": 5,
+      "issues": [],
+      "long_short": {
+        "ann_return_gross": 0.16637499753486135,
+        "ann_return_net": 0.10194131236172216,
+        "cost_bps": 10.0,
+        "days": 262,
+        "max_drawdown": -0.09658677100021984,
+        "n_long_mean": 1051.7022900763359,
+        "n_short_mean": 1051.7022900763359,
+        "periods_per_year": 50.4,
+        "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+        "sharpe_net": 1.042165016347002,
+        "turnover_mean": 0.6392230671938409
+      },
+      "name": "VWAP放量反转",
+      "portfolio": {
+        "ann_return_net": 0.3282130614896288,
+        "cost_bps": 10.0,
+        "days": 262,
+        "max_drawdown": -0.3759502934573731,
+        "n_long_mean": 1051.7022900763359,
+        "periods_per_year": 50.4,
+        "portfolio_type": "long_only_top_quantile",
+        "sharpe_net": 1.734788389548999,
+        "turnover_mean": 0.692008205322653
+      },
+      "rankic_ir": 3.270033777398576,
+      "rankic_mean": 0.018749422292372215,
+      "rankic_positive_frac": 0.5801526717557252,
+      "rows": 1377164,
+      "run_date": "20260605",
+      "run_quality": "complete"
+    },
+    {
+      "cost_sensitivity": {
+        "10": {
+          "ann_return_net": 0.2714677541420271,
+          "cost_bps": 10.0,
+          "days": 264,
+          "max_drawdown": -0.41503464527137945,
+          "n_long_mean": 1051.8901515151515,
+          "periods_per_year": 50.4,
+          "portfolio_type": "long_only_top_quantile",
+          "sharpe_net": 1.475891190692284,
+          "turnover_mean": 0.5896628975713126
+        },
+        "20": {
+          "ann_return_net": 0.24174874410443298,
+          "cost_bps": 20.0,
+          "days": 264,
+          "max_drawdown": -0.4213660266041658,
+          "n_long_mean": 1051.8901515151515,
+          "periods_per_year": 50.4,
+          "portfolio_type": "long_only_top_quantile",
+          "sharpe_net": 1.3140919303563185,
+          "turnover_mean": 0.5896628975713126
+        },
+        "5": {
+          "ann_return_net": 0.2863272591608242,
+          "cost_bps": 5.0,
+          "days": 264,
+          "max_drawdown": -0.41184448593334877,
+          "n_long_mean": 1051.8901515151515,
+          "periods_per_year": 50.4,
+          "portfolio_type": "long_only_top_quantile",
+          "sharpe_net": 1.556809343762708,
+          "turnover_mean": 0.5896628975713126
+        }
+      },
+      "dates": 264,
+      "decision": "kill",
+      "decision_note": "raw backtest candidate; requires critic approval before promotion",
+      "expression": "moneyflow_exhaustion_reversal",
+      "factor_id": "F_MF_EXHAUST_5",
+      "formula": "(1 - rank(ret_5)) * rank(mf_buy_pressure)",
+      "formula_key": "(1-rank(ret_5))*rank(mf_buy_pressure)",
+      "horizon_days": 5,
+      "issues": [
+        "large_drawdown",
+        "negative_long_short_diagnostic"
+      ],
+      "long_short": {
+        "ann_return_gross": 0.03763436883369043,
+        "ann_return_net": -0.0193859475563237,
+        "cost_bps": 10.0,
+        "days": 264,
+        "max_drawdown": -0.3474459367666698,
+        "n_long_mean": 1051.8901515151515,
+        "n_short_mean": 1051.8901515151515,
+        "periods_per_year": 50.4,
+        "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+        "sharpe_net": -0.19426290031555027,
+        "turnover_mean": 0.565677741964426
+      },
+      "name": "资金流耗尽反转",
+      "portfolio": {
+        "ann_return_net": 0.2714677541420271,
+        "cost_bps": 10.0,
+        "days": 264,
+        "max_drawdown": -0.41503464527137945,
+        "n_long_mean": 1051.8901515151515,
+        "periods_per_year": 50.4,
+        "portfolio_type": "long_only_top_quantile",
+        "sharpe_net": 1.475891190692284,
+        "turnover_mean": 0.5896628975713126
+      },
+      "rankic_ir": 5.33662744201163,
+      "rankic_mean": 0.027422362808655985,
+      "rankic_positive_frac": 0.6060606060606061,
+      "rows": 1387980,
+      "run_date": "20260605",
+      "run_quality": "complete"
+    },
+    {
+      "cost_sensitivity": {
+        "10": {
+          "ann_return_net": 0.25602484882105814,
+          "cost_bps": 10.0,
+          "days": 264,
+          "max_drawdown": -0.3855220326138059,
+          "n_long_mean": 1051.8977272727273,
+          "periods_per_year": 50.4,
+          "portfolio_type": "long_only_top_quantile",
+          "sharpe_net": 1.4453367903203451,
+          "turnover_mean": 0.60448191390979
+        },
+        "20": {
+          "ann_return_net": 0.22555896036000467,
+          "cost_bps": 20.0,
+          "days": 264,
+          "max_drawdown": -0.39843988501143546,
+          "n_long_mean": 1051.8977272727273,
+          "periods_per_year": 50.4,
+          "portfolio_type": "long_only_top_quantile",
+          "sharpe_net": 1.2732880713502868,
+          "turnover_mean": 0.60448191390979
+        },
+        "5": {
+          "ann_return_net": 0.2712577930515849,
+          "cost_bps": 5.0,
+          "days": 264,
+          "max_drawdown": -0.3789624661529354,
+          "n_long_mean": 1051.8977272727273,
+          "periods_per_year": 50.4,
+          "portfolio_type": "long_only_top_quantile",
+          "sharpe_net": 1.5313657238619431,
+          "turnover_mean": 0.60448191390979
+        }
+      },
+      "dates": 264,
+      "decision": "kill",
+      "decision_note": "failed raw backtest gate",
+      "expression": "moneyflow_confirmed_momentum",
+      "factor_id": "F_MF_CONFIRM_5",
+      "formula": "rank(ret_5) * rank(mf_buy_pressure)",
+      "formula_key": "rank(ret_5)*rank(mf_buy_pressure)",
+      "horizon_days": 5,
+      "issues": [
+        "non_positive_rankic",
+        "negative_long_short_diagnostic",
+        "unstable_rankic"
+      ],
+      "long_short": {
+        "ann_return_gross": -0.0218973672327144,
+        "ann_return_net": -0.07928467966109237,
+        "cost_bps": 10.0,
+        "days": 264,
+        "max_drawdown": -0.5313851447838472,
+        "n_long_mean": 1051.8977272727273,
+        "n_short_mean": 1051.8901515151515,
+        "periods_per_year": 50.4,
+        "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+        "sharpe_net": -0.8576265075350533,
+        "turnover_mean": 0.569318575678353
+      },
+      "name": "资金流顺势确认",
+      "portfolio": {
+        "ann_return_net": 0.25602484882105814,
+        "cost_bps": 10.0,
+        "days": 264,
+        "max_drawdown": -0.3855220326138059,
+        "n_long_mean": 1051.8977272727273,
+        "periods_per_year": 50.4,
+        "portfolio_type": "long_only_top_quantile",
+        "sharpe_net": 1.4453367903203451,
+        "turnover_mean": 0.60448191390979
+      },
+      "rankic_ir": -4.780344342857533,
+      "rankic_mean": -0.025440309268623222,
+      "rankic_positive_frac": 0.4166666666666667,
+      "rows": 1387980,
+      "run_date": "20260605",
+      "run_quality": "complete"
+    },
+    {
+      "cost_sensitivity": {
+        "10": {
+          "ann_return_net": 0.1845167877517911,
+          "cost_bps": 10.0,
+          "days": 261,
+          "max_drawdown": -0.3542010140412569,
+          "n_long_mean": 1049.5862068965516,
+          "periods_per_year": 50.4,
+          "portfolio_type": "long_only_top_quantile",
+          "sharpe_net": 1.385131962468312,
+          "turnover_mean": 0.046017238975981256
+        },
+        "20": {
+          "ann_return_net": 0.1821975189074016,
+          "cost_bps": 20.0,
+          "days": 261,
+          "max_drawdown": -0.35603219860345403,
+          "n_long_mean": 1049.5862068965516,
+          "periods_per_year": 50.4,
+          "portfolio_type": "long_only_top_quantile",
+          "sharpe_net": 1.367621113552156,
+          "turnover_mean": 0.046017238975981256
+        },
+        "5": {
+          "ann_return_net": 0.1856764221739858,
+          "cost_bps": 5.0,
+          "days": 261,
+          "max_drawdown": -0.35328350561656496,
+          "n_long_mean": 1049.5862068965516,
+          "periods_per_year": 50.4,
+          "portfolio_type": "long_only_top_quantile",
+          "sharpe_net": 1.3938829207621954,
+          "turnover_mean": 0.046017238975981256
+        }
+      },
+      "dates": 261,
+      "decision": "kill",
+      "decision_note": "raw backtest candidate; requires critic approval before promotion",
+      "expression": "value_liquidity_defensive",
+      "factor_id": "F_VALUE_LIQ_DEF_5",
+      "formula": "(rank(pb_inv) + rank(liq_inv) + rank(low_vol)) / 3",
+      "formula_key": "(rank(pb_inv)+rank(liq_inv)+rank(low_vol))/3",
+      "horizon_days": 5,
+      "issues": [
+        "negative_long_short_diagnostic"
+      ],
+      "long_short": {
+        "ann_return_gross": -0.12255739282058496,
+        "ann_return_net": -0.1277850878666726,
+        "cost_bps": 10.0,
+        "days": 261,
+        "max_drawdown": -0.5501248687069925,
+        "n_long_mean": 1049.5862068965516,
+        "n_short_mean": 1049.5862068965516,
+        "periods_per_year": 50.4,
+        "portfolio_type": "long_short_diagnostic_not_directly_tradable",
+        "sharpe_net": -0.9037351032420422,
+        "turnover_mean": 0.051862054028647
+      },
+      "name": "价值流动性防御",
+      "portfolio": {
+        "ann_return_net": 0.1845167877517911,
+        "cost_bps": 10.0,
+        "days": 261,
+        "max_drawdown": -0.3542010140412569,
+        "n_long_mean": 1049.5862068965516,
+        "periods_per_year": 50.4,
+        "portfolio_type": "long_only_top_quantile",
+        "sharpe_net": 1.385131962468312,
+        "turnover_mean": 0.046017238975981256
+      },
+      "rankic_ir": 3.800101562536554,
+      "rankic_mean": 0.034386716498860145,
+      "rankic_positive_frac": 0.6130268199233716,
+      "rows": 1369121,
+      "run_date": "20260605",
+      "run_quality": "complete"
+    }
+  ]
+}
